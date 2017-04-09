@@ -17,12 +17,13 @@ Wstęp
    system
    module
    flowchart
+   events
 
 
 Wejściowym plikiem dla zdefiniowanej konfiguracji **MUSI** być plik *system.json*, który określa system z którym jest definiowana konfiguracja.
 
 Format i struktura plików
-============
+=========================
 Konfigurację **MUSI** być zdefiniowana w pliku JSON, chyba że w danym fragmencie określono inne możliwości.
 
 Podział pliku

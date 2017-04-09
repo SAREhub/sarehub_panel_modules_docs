@@ -1,6 +1,6 @@
-####################
+###################
 Flowchart - Bloczki
-####################
+###################
 
 Każdy moduł **MOŻE** zawierać jeden lub kilka bloczków dostępnych na schemacie kampanii.
 Bloczki stanowią najbardziej podstawą cześć modułu systemu i powinny zawierać tylko jedną główną funkcjonalność.
@@ -96,7 +96,7 @@ Przykład schematu danych:
   }
 
 Struktura formularza - structure
-===========================
+================================
 Właściwość jest tablicą która opisuje kolejne pola formularza które zostaną wyświetlone użytkownikowi i jest ściśle związana z schematem danych.
 Pole formularza **MOŻE** być zdefiniowany jako obiekt zawierający właściwości *model* gdzie należy podać nazwę właściwości z schematu danych formularza.
 Drugim wymaganym polem jest *type* które jawnie określa wybrany komponent formularza.
