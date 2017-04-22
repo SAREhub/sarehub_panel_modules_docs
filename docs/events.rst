@@ -90,9 +90,11 @@ Akcja pozwala na zapis do danych do określonego API. Definicja musi być zgodna
               "properties": {
                 "body" : {
                   "title" : "opcja używana do sterowania ciałem żądania. Opcja **NIE MOŻE** być używana do wysyłania żądania form-params"
+                },
+                "json": {
+                  "title": "body wysłany jako JSON"
                 }
-              },
-              "required": ["body"]
+              }
             }
           },
           "required": [

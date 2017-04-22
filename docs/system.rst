@@ -18,6 +18,14 @@ Definicja systemu jest podstawową cześcią integracji i stanowi wejście dla r
             "title": "nazwa systemu wyświetlana w panelu",
             "type": "string"
           }
+          "clients": {
+            "type": "object",
+            "title": "Definicja klientów REST API"
+          },
+          "vars": {
+            "type": "object",
+            "title": "Definicja zmiennych do użycia w konfiguracji"
+          }
           "authorization": {
             "type": "object"
             "properties": {
@@ -96,4 +104,51 @@ Link ten jest generowany w systemie SAREhub i jest w formacie:
           }
         }
       }
+    }
+
+Klienci REST API
+================
+
+Jeśli konfiguracja wymaga odwołań do zewnętrznego REST API to **MUSI** być ono zdefiniowane w polu *clients* w definicji systemu. Definicja musi być zdefiniowana w postaci obiektu, gdzie kluczem jest unikalny id api, a wartością jest obiekt konfiguracji określony wg schematu:
+
+.. code-block:: json
+
+    {
+      "type": "object",
+      "properties": {
+          "baseUrl": {
+            "title": "Bazowy url dla zapytań",
+            "type": "string"
+          },
+          "authorization": {
+            "title": "typ autoryzacji w api",
+            "type": "string"
+          }
+    }
+
+Definicja zmiennych
+===================
+Wszystkie zmienne które mają byc użyte w konfiguracji należy zdefiniować w polu *vars* w definicji systemu, modułu i bloczka. 
+Obiekt konfiguracji zmiennej **MUSI** być zdefiniowany wg schematu:
+
+.. code-block:: json
+
+    {
+      "type": "object",
+      "properties": {
+          "type": {
+            "title": "Typ zmiennej",
+            "type": "string"
+          },
+          "value": {
+            "title": "wartość zmiennej"
+          },
+          "allowOverwrite": {
+            "type": "bool",
+            "title": "Pole określa czy zmienna może być nadpisana w późniejszej konfiguracji
+          },
+          "allowPanelOverwrite": {
+            "type": "bool",
+            "title": "Pole określa czy zmienna może być nadpisana dla konta w SAREhub
+          }
     }

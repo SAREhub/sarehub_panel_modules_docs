@@ -289,6 +289,7 @@ sh-radio
 Pole wyboru. Zaznaczenie jednej opcji wyłącza inne opcje.
 
 .. code-block:: json
+
   {
   "type": "object",
   "properties": {
