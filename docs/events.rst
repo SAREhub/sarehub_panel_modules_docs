@@ -11,7 +11,7 @@ Obecnie silnik konfiguracji wspiera następujące zdarzenia:
 * campaign.stop - Zdarzenie przy zatrzymaniu kampanii
 * campaign.delete - Zdarzenie uruchomione przy usuwaniu kampanii
 
-Aby zdefiniować akcję obsługi zdarzeń w definicji systemu należy wstawić sekcję event o strukturze:
+Aby zdefiniować akcję obsługi zdarzeń w definicji systemu lub modułu należy wstawić sekcję event o strukturze:
 
 
 .. code-block:: json
@@ -45,6 +45,8 @@ Aby zdefiniować akcję obsługi zdarzeń w definicji systemu należy wstawić s
         }
       }
     }
+
+Jeśli obsługa danego zdarzenia jest zdefiniowana w module i w systemie, zostanie użyta definicja modułu na którym jest wywoływane zdarzenia. 
 
 Akcje
 =====
@@ -97,6 +99,16 @@ Akcja pozwala na zapis do danych do określonego API. Definicja musi być zgodna
                 },
                 "json": {
                   "title": "body wysłany jako JSON"
+                },
+                "form-params": {
+                  "title": "body wysłany jako application/x-www-form-urlencoded"
+                },
+                "headers": {
+                  "title": "nagłówki wysłane przy żądaniu",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
