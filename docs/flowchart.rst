@@ -348,8 +348,8 @@ Pole służy do grupowania innych pól. Pole nie wymaga, aby zdefiniowano w nim 
     }
   }
 
-Kontekst warunków
------------------
+Kontekst preprocesora
+---------------------
 
 +--------------------------------------------------+---------------------------------------------+
 | zmienna                                          | Opis                                        |

@@ -46,7 +46,7 @@ Aby zdefiniować akcję obsługi zdarzeń w definicji systemu lub modułu należ
       }
     }
 
-Jeśli obsługa danego zdarzenia jest zdefiniowana w module i w systemie, zostanie użyta definicja modułu na którym jest wywoływane zdarzenia. 
+Jeśli obsługa danego zdarzenia jest zdefiniowana w module i w systemie, zostanie użyta definicja modułu na którym jest wywoływane zdarzenia.
 
 Akcje
 =====
@@ -123,3 +123,19 @@ Akcja pozwala na zapis do danych do określonego API. Definicja musi być zgodna
         }
       }
     }
+
+
+Kontekst preprocesora
+---------------------
+
++--------------------------------------------------+---------------------------------------------+
+| zmienna                                          | Opis                                        |
++==================================================+=============================================+
+| settings                                         | Tablica wybranych ustawień w bloczku        |
++--------------------------------------------------+---------------------------------------------+
+| blockId                                          | id bloczka dla którego wywołano zdarzenia   |
++--------------------------------------------------+---------------------------------------------+
+| moduleId                                         | id modułu dla którego wywołano zdarzenia    |
++--------------------------------------------------+---------------------------------------------+
+| flowOuts                                         | tagi wyjściowe                              |
++--------------------------------------------------+---------------------------------------------+
