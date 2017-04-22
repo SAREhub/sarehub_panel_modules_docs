@@ -70,6 +70,10 @@ Akcja pozwala na zapis do danych do określonego API. Definicja musi być zgodna
               "type": "string",
               "default": "rest-api"
             },
+            "apiId": {
+              "type": "string",
+              "title": "id z definicji api"
+            }
             "method": {
               "type": "string",
               "title": "Metoda akcji w REST API",

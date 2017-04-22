@@ -158,3 +158,27 @@ Typ **MUSI** być zdefiniowany wg schematu:
         }
       }
     }
+
+@Render
+-------
+
+Dyrektywa pozwala na wstawienie wyniku parsowania zewnętrznego pliku.
+
+.. code-block:: json
+
+    {
+      "@Render": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "title": "typ parsera",
+            "enum": ["twig"],
+            "type": "string"
+          },
+          "file": {
+            "title": "względna ścieżka do pliku, relatywnie do system.json",
+            "type": "string"
+          }
+        }
+      }
+    }
