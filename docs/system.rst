@@ -17,28 +17,36 @@ Definicja systemu jest podstawową cześcią integracji i stanowi wejście dla r
           "label": {
             "title": "nazwa systemu wyświetlana w panelu",
             "type": "string"
-          }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "version": {
+            "title": "Wersja konfiguracji w formacie 'Major (numer główny).Minor (numer dodatkowy).Release (numer wydania)'",
+            "type": "string"
+          },
           "clients": {
             "type": "object",
             "title": "Definicja klientów REST API"
           },
-          "vars": {
-            "type": "object",
-            "title": "Definicja zmiennych do użycia w konfiguracji"
-          }
           "authorization": {
-            "type": "object"
-            "properties": {
-              "handler": {
-                "title": "sposób obsługi integracji z systemem",
-                "type": "object"
-              },
-              "restrictions" : {
-                "title" : "lista warunków dla integracji",
-                "type": "array"
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "handler": {
+                  "title": "sposób obsługi integracji z systemem",
+                  "type": "object"
+                },
+                "restrictions" : {
+                  "title" : "lista warunków dla integracji",
+                  "type": "array"
               }
             }
-          }
+          },
           "modules": {
             "title": "Lista modułów systemu"
             "type": "array",
@@ -123,32 +131,5 @@ Jeśli konfiguracja wymaga odwołań do zewnętrznego REST API to **MUSI** być 
           "authorization": {
             "title": "typ autoryzacji w api",
             "type": "string"
-          }
-    }
-
-Definicja zmiennych
-===================
-Wszystkie zmienne które mają byc użyte w konfiguracji należy zdefiniować w polu *vars* w definicji systemu, modułu i bloczka. 
-Obiekt konfiguracji zmiennej **MUSI** być zdefiniowany wg schematu:
-
-.. code-block:: json
-
-    {
-      "type": "object",
-      "properties": {
-          "type": {
-            "title": "Typ zmiennej",
-            "type": "string"
-          },
-          "value": {
-            "title": "wartość zmiennej"
-          },
-          "allowOverwrite": {
-            "type": "bool",
-            "title": "Pole określa czy zmienna może być nadpisana w późniejszej konfiguracji
-          },
-          "allowPanelOverwrite": {
-            "type": "bool",
-            "title": "Pole określa czy zmienna może być nadpisana dla konta w SAREhub
           }
     }

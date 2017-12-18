@@ -4,17 +4,37 @@ Obsługa zdarzeń
 
 System pozwala na określenie akcji jaka ma być wykonana przy określonych zdarzeniach systemu.
 
-Obecnie silnik konfiguracji wspiera następujące zdarzenia:
-
-* campaign.save - Zdarzenie podczas zapisu kampanii
-* campaign.start - Zdarzenie przy uruchomieniu kampanii
-* campaign.stop - Zdarzenie przy zatrzymaniu kampanii
-* campaign.delete - Zdarzenie uruchomione przy usuwaniu kampanii
-
 Aby zdefiniować akcję obsługi zdarzeń w definicji systemu lub modułu należy wstawić sekcję event o strukturze:
 
 
 .. code-block:: json
+
+    {
+      "events": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "title": "Id zdarzenia"
+            },
+            "subscribers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "title": "Typ subskrbenta"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
 
     {
       "events": {
@@ -27,7 +47,6 @@ Aby zdefiniować akcję obsługi zdarzeń w definicji systemu lub modułu należ
               "properties": {
                 "event" : {
                   "type" : "string",
-                  "enum" : ["campaign.save", "campaign.start", "campaign.stop", "campaign.delete"]
                 },
                 "handler": {
                   "type": "object",
@@ -48,10 +67,21 @@ Aby zdefiniować akcję obsługi zdarzeń w definicji systemu lub modułu należ
 
 Jeśli obsługa danego zdarzenia jest zdefiniowana w module i w systemie, zostanie użyta definicja modułu na którym jest wywoływane zdarzenia.
 
-Akcje
-=====
+Obecnie silnik konfiguracji wspiera następujące zdarzenia:
 
+1. Zdarzenia kampanii:
 
+  * campaign.save - Zdarzenie podczas zapisu kampanii
+  * campaign.start - Zdarzenie przy uruchomieniu kampanii
+  * campaign.stop - Zdarzenie przy zatrzymaniu kampanii
+  * campaign.delete - Zdarzenie uruchomione przy usuwaniu kampanii
+
+2. Zdarzenia autoryzacji
+
+  * authorization.form.send - Zdarzenie aktywowane po wysłaniu formularza autoryzacji
+
+Subskrybenci zdarzeń
+====================
 Zapis do REST API
 -----------------
 
@@ -72,7 +102,7 @@ Akcja pozwala na zapis do danych do określonego API. Definicja musi być zgodna
               "type": "string",
               "default": "rest-api"
             },
-            "apiId": {
+            "clientId": {
               "type": "string",
               "title": "id z definicji api"
             }
