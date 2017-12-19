@@ -15,7 +15,7 @@ Aby zdefiniować akcję obsługi zdarzeń w definicji systemu lub modułu należ
         "items": {
           "type": "object",
           "properties": {
-            "id": {
+            "event": {
               "type": "string",
               "title": "Id zdarzenia"
             },
@@ -26,37 +26,12 @@ Aby zdefiniować akcję obsługi zdarzeń w definicji systemu lub modułu należ
                 "properties": {
                   "type": {
                     "type": "string",
-                    "title": "Typ subskrbenta"
+                    "title": "Typ subskrybenta"
                   }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    {
-      "events": {
-        "type": "object",
-        "properties": {
-          "handlers": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "event" : {
-                  "type" : "string",
                 },
-                "handler": {
+                "config": {
                   "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "title": "Nazwa akcji osbługi zdarzeń"
-                    }
-                  },
-                "additionalProperties": true
+                  "title" "Konfiguracja subskrybenta"
                 }
               }
             }
@@ -80,92 +55,91 @@ Obecnie silnik konfiguracji wspiera następujące zdarzenia:
 
   * authorization.form.send - Zdarzenie aktywowane po wysłaniu formularza autoryzacji
 
+.. _subscribers:
+
 Subskrybenci zdarzeń
 ====================
 Zapis do REST API
 -----------------
 
-Akcja pozwala na zapis do danych do określonego API. Definicja musi być zgodna z schematem:
+Akcja pozwala na wysłanie żądania do określonego API. Definicja musi być zgodna z schematem:
 
 .. code-block:: json
 
     {
       "type": "object",
       "properties": {
-        "event": {
-          "type": "string"
+        "type": {
+          "type": "string",
+          "enum": [
+            "rest-api"
+          ]
         },
-        "handler": {
+        "config": {
           "type": "object",
           "properties": {
-            "type": {
-              "type": "string",
-              "default": "rest-api"
-            },
             "clientId": {
               "type": "string",
-              "title": "id z definicji api"
-            }
-            "method": {
-              "type": "string",
-              "title": "Metoda akcji w REST API",
-              "enum": [
-                "GET",
-                "POST",
-                "PUT",
-                "PATCH",
-                "DELETE"
-              ]
+              "title": "Id klienta, zdefiniowany w konfiguracji systemu"
             },
-            "action": {
-              "type": "string",
-              "title": "Url dla akcji"
-            },
-            "options": {
+            "request": {
               "type": "object",
               "properties": {
-                "body" : {
-                  "title" : "opcja używana do sterowania ciałem żądania. Opcja **NIE MOŻE** być używana do wysyłania żądania form-params"
+                "method": {
+                  "type": "string",
+                  "title": "Metoda akcji w REST API",
+                  "enum": [
+                    "GET",
+                    "POST",
+                    "PUT",
+                    "PATCH",
+                    "DELETE"
+                  ]
                 },
-                "json": {
-                  "title": "body wysłany jako JSON"
+                "action": {
+                  "type": "string",
+                  "title": "Url dla akcji"
                 },
-                "form-params": {
-                  "title": "body wysłany jako application/x-www-form-urlencoded"
-                },
-                "headers": {
-                  "title": "nagłówki wysłane przy żądaniu",
-                  "type": "array",
-                  "items": {
-                    "type": "string"
+                "options": {
+                  "type": "object",
+                  "properties": {
+                    "body" : {
+                      "type": "string",
+                      "title" : "opcja używana do sterowania ciałem żądania. Opcja **NIE MOŻE** być używana do wysyłania żądania form-params"
+                    },
+                    "json": {
+                      "type": "object",
+                      "title": "body wysłany jako JSON"
+                    },
+                    "form-params": {
+                      "type": "object",
+                      "title": "body wysłany jako application/x-www-form-urlencoded"
+                    },
+                    "headers": {
+                      "title": "nagłówki wysłane przy żądaniu",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
                   }
-                }
+                },
+                "required": [
+                  "type",
+                  "method",
+                  "action",
+                  "options"
+                ],
+                "additionalProperties": true
               }
+            },
+            "onSuccess": {
+              "type": "string"
+            },
+            "onError": {
+              "type": "string"
             }
-          },
-          "required": [
-            "type",
-            "method",
-            "action",
-            "options"
-          ],
-          "additionalProperties": true
+          }
         }
       }
     }
-
-
-Kontekst preprocesora
----------------------
-
-+--------------------------------------------------+---------------------------------------------+
-| zmienna                                          | Opis                                        |
-+==================================================+=============================================+
-| settings                                         | Tablica wybranych ustawień w bloczku        |
-+--------------------------------------------------+---------------------------------------------+
-| blockId                                          | id bloczka dla którego wywołano zdarzenia   |
-+--------------------------------------------------+---------------------------------------------+
-| moduleId                                         | id modułu dla którego wywołano zdarzenia    |
-+--------------------------------------------------+---------------------------------------------+
-| flowOuts                                         | tagi wyjściowe                              |
-+--------------------------------------------------+---------------------------------------------+
