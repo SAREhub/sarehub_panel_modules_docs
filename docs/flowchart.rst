@@ -10,79 +10,79 @@ Konfigurację bloczka **MUSI** być zdefiniowana wg podanego schematu:
 
 .. code-block:: json
 
-  {
-    "type": "object",
-    "properties": {
-      "id": {
-        "title": "unikalny identyfikator bloczka",
-        "type": "string"
-      },
-      "label": {
-        "title": "nazwa bloczka wyświetlana w panelu",
-        "type": "string"
-      },
-      "flowchart": {
-        "type": "object",
-        "properties": {
-          "node": {
-            "title": "Opisuje wygląd bloczka na schemacie kampanii",
-            "type": "object",
-            "properties": {
-              "endpoints": {
-                "type": "object",
-                "properties": {
-                  "inputs": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "type": "string",
-                          "enum": [
-                            "target"
-                          ]
+      {
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "identyfikator systemu",
+          "type": "string"
+        },
+        "label": {
+          "title": "nazwa bloczka wyświetlana w panelu",
+          "type": "string"
+        },
+        "flowchart": {
+          "type": "object",
+          "properties": {
+            "node": {
+              "title": "Opisuje wygląd bloczka na schemacie kampanii",
+              "type": "object",
+              "properties": {
+                "endpoints": {
+                  "type": "object",
+                  "properties": {
+                    "inputs": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "target"
+                            ]
+                          }
                         }
                       }
-                    }
-                  },
-                  "outputs": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "type": "string",
-                          "enum": [
-                            "plus",
-                            "minus",
-                            "universal"
-                          ]
+                    },
+                    "outputs": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "plus",
+                              "minus",
+                              "universal"
+                            ]
+                          }
                         }
                       }
                     }
                   }
                 }
               }
-            }
-          },
-          "form": {
-            "title": "Opisuje formularz ustawień bloczka",
-            "type": "object",
-            "properties": {
-              "structure": {
-                "type": "object",
-                "title": "Opis struktury formularza określający interfejs użytkownika"
-              },
-              "schema": {
-                "type": "object",
-                "title": "Schemat danych formularza"
+            },
+            "form": {
+              "title": "Opisuje formularz ustawień bloczka",
+              "type": "object",
+              "properties": {
+                "structure": {
+                  "type": "object",
+                  "title": "Opis struktury formularza określający interfejs użytkownika"
+                },
+                "schema": {
+                  "type": "object",
+                  "title": "Schemat danych formularza"
+                }
               }
             }
           }
         }
       }
     }
-  }
 
 Schemat danych - schema
 =======================
@@ -392,3 +392,8 @@ Kontekst preprocesora
 +==================================================+=============================================+
 | settings                                         | Tablica obecnie wybranych ustawień          |
 +--------------------------------------------------+---------------------------------------------+
+
+
+Flowchart - Przykładowy Json
+=======================
+
