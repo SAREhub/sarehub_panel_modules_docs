@@ -2,7 +2,7 @@
 System
 ######
 
-Definicja systemu jest podstawową cześcią integracji i stanowi wejście dla reszty konfiguracji i **MUSI** być zdefiniowany według schematu:
+Definicja systemu jest podstawową cześcią integracji i stanowi wejście dla reszty konfiguracji i **MUSI** być zdefiniowana według schematu:
 
 .. code-block:: json
 
@@ -15,7 +15,7 @@ Definicja systemu jest podstawową cześcią integracji i stanowi wejście dla r
             "type": "string"
           },
           "label": {
-            "title": "nazwa systemu wyświetlana w panelu",
+            "title": "nazwa bloczka funkcjonalności",
             "type": "string"
           },
           "tags": {
@@ -38,11 +38,11 @@ Definicja systemu jest podstawową cześcią integracji i stanowi wejście dla r
               "type": "object",
               "properties": {
                 "handler": {
-                  "title": "sposób obsługi integracji z systemem",
+                  "title": "Sposób obsługi integracji z systemem",
                   "type": "object"
                 },
                 "restrictions" : {
-                  "title" : "lista warunków dla integracji",
+                  "title" : "Lista warunków dla integracji",
                   "type": "array"
               }
             }
@@ -59,16 +59,16 @@ Definicja systemu jest podstawową cześcią integracji i stanowi wejście dla r
 Autoryzacja systemu
 ===================
 
-Sekcja konfiguracji określa akcję jaka ma być wykonana gdy użytkownik chce włączyć integrację z systemem w swoim koncie po raz pierwszy.
+Sekcja konfiguracji określa akcję autoryzacji jaka ma być wykonana gdy użytkownik chce włączyć integrację z systemem w swoim koncie po raz pierwszy.
 
-Obecnie dostępne są następujące sposoby integracji:
+Obecnie dostępne są następujące sposoby autoryzacji integracji:
 
 OAUTH2
 ------
 
-Typ pozwala na autoryzację systemu SAREhub w integrowanym systemie, wykorzystując protokół  `oauth2 <https://oauth.net/2/>`_.
+Pozwala na autoryzację systemu SAREhub z integrowanym systemem, wykorzystując protokół  `oauth2 <https://oauth.net/2/>`_.
 Parametry clientId, clientSecret, urlAuthorize, urlAccessToken, urlResourceOwnerDetails muszą być ustawione w zewnętrznym systemie.
-W systemie zewnętrznym musi być rówież ustawiony powrotny adres url, na który zostanie przekierowany użytkownik po udanej lub nieudanej authoryzacji.
+W systemie zewnętrznym musi być rówież ustawiony powrotny adres url, na który zostanie przekierowany użytkownik po udanej lub nieudanej autoryzacji.
 Link ten jest generowany w systemie SAREhub i jest w formacie:
 *https://my.sarehub.com/pl/oauth/authorize/id_systemu* gdzie id_systemu brany jest z konfiguracji.
 
@@ -117,7 +117,7 @@ Link ten jest generowany w systemie SAREhub i jest w formacie:
 Klienci REST API
 ================
 
-Jeśli konfiguracja wymaga odwołań do zewnętrznego REST API to **MUSI** być ono zdefiniowane w polu *clients* w definicji systemu. Definicja musi być zdefiniowana w postaci obiektu, gdzie kluczem jest unikalny id api, a wartością jest obiekt konfiguracji określony wg schematu:
+Jeśli konfiguracja wymaga odwołań do zewnętrznego REST API to **MUSIMY** zdefiniować odwołanie w polu *clients* w definicji systemu. Definicja musi być zdefiniowana w postaci obiektu, gdzie kluczem jest unikalny id api, a wartością jest obiekt konfiguracji określony wg schematu:
 
 .. code-block:: json
 
@@ -129,7 +129,7 @@ Jeśli konfiguracja wymaga odwołań do zewnętrznego REST API to **MUSI** być 
             "type": "string"
           },
           "authorization": {
-            "title": "typ autoryzacji w api",
+            "title": "Typ autoryzacji w api",
             "type": "string"
           }
     }
