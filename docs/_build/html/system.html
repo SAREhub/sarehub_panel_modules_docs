@@ -1,0 +1,436 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="pl" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="pl" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>System &mdash; SAREhub Panel 1.0.0 - dokumentacja</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://media.readthedocs.org/css/sphinx_rtd_theme.css" type="text/css" />
+  <link rel="stylesheet" href="https://media.readthedocs.org/css/readthedocs-doc-embed.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/extra.css" type="text/css" />
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Moduły" href="module.html" />
+    <link rel="prev" title="Wstępne parsowanie pliku" href="preprocesor.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SAREhub Panel
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Wstęp</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preprocesor.html">Wstępne parsowanie pliku</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#autoryzacja-systemu-authorization">Autoryzacja systemu - authorization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#typy-autoryzacji-type">Typy autoryzacji - type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#restrykcje-dla-integracji-restrictions">Restrykcje dla integracji - restrictions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">Moduły</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flowchart.html">Flowchart - Bloczki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Obsługa zdarzeń</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SAREhub Panel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>System</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/system.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="system">
+<h1>System<a class="headerlink" href="#system" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Definicja systemu jest podstawową częścią integracji i stanowi wejście dla reszty konfiguracji:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="46%" />
+<col width="8%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>Unikalny identyfikator systemu</td>
+<td>TAK</td>
+<td>Maksymalnie 32 znaki A-Z, a-z, 0-9, -, _</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>Nazwa systemu wyświetlana w panelu integracji</td>
+<td>TAK</td>
+<td>Maksymalnie 255 znaków</td>
+</tr>
+<tr class="row-even"><td>logo</td>
+<td>Url do loga wyświetlanego w panelu integracji</td>
+<td>NIE</td>
+<td>Maksymalnie 255 znaków</td>
+</tr>
+<tr class="row-odd"><td>description</td>
+<td>Opis systemu</td>
+<td>NIE</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>version</td>
+<td>Wersja konfiguracji systemu</td>
+<td>TAK</td>
+<td>Wersja w formacie Minor.Manor.Build</td>
+</tr>
+<tr class="row-odd"><td>authorization</td>
+<td>Obiekt zawierający konfigurację autoryzacji integracji</td>
+<td>TAK</td>
+<td>Opis szczegółowy poniżej</td>
+</tr>
+<tr class="row-even"><td>modules</td>
+<td>Tablica zawierająca definicje modułów</td>
+<td>TAK</td>
+<td>Lista definicji modułów</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;id_systemu&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Nazwa systemu&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;logo&quot;</span><span class="p">:</span> <span class="s2">&quot;test.pl/logo.png&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Opis systemu&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;authorization&quot;</span> <span class="p">:</span> <span class="p">{},</span>
+  <span class="nt">&quot;modules&quot;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="autoryzacja-systemu-authorization">
+<h2>Autoryzacja systemu - authorization<a class="headerlink" href="#autoryzacja-systemu-authorization" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Konfiguracja określa kilka możliwości integracji i autoryzacji systemu zewnętrznego.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="46%" />
+<col width="8%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>type</td>
+<td>Określenie typu</td>
+<td>TAK</td>
+<td>Typy opisane poniżej</td>
+</tr>
+<tr class="row-odd"><td>config</td>
+<td>Dodatkowa konfiguracja dla typu autoryzacji</td>
+<td>NIE</td>
+<td>Zależnie od typu</td>
+</tr>
+<tr class="row-even"><td>restrictions</td>
+<td>Ustawienia ograniczeń dla integracji</td>
+<td>NIE</td>
+<td>Opisane poniżej</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;authorization_type&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="nt">&quot;restrictions&quot;</span><span class="p">:</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="typy-autoryzacji-type">
+<h3>Typy autoryzacji - type<a class="headerlink" href="#typy-autoryzacji-type" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ul class="simple">
+<li>Brak - none</li>
+</ul>
+<p>Przy typie <em>none</em> użytkownik nie może sam wykonać integracji systemu w jego koncie i musi być uruchomiona ręcznie przez administratora lub automatycznie przy włączeniu integracji.
+Pole <em>config</em> jest ignorowane.</p>
+<ul class="simple">
+<li>OAUTH 2 - oauth</li>
+</ul>
+<p>Pozwala na autoryzację systemu SAREhub z integrowanym systemem którą&nbsp;może wykonać użytkownik systemu. Wykorzystuje protokół  <a class="reference external" href="https://oauth.net/2/">oauth2</a>.
+Konfiguracja typu <strong>MUSI</strong> zawierać następujące parametry:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="43%" />
+<col width="5%" />
+<col width="39%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>clientId</td>
+<td>Id określone w konfiguracji serwera OAUTH</td>
+<td>TAK</td>
+<td>Musi byc zgodne z serwerem OAUTH</td>
+</tr>
+<tr class="row-odd"><td>clientSecret</td>
+<td>Secret określony w konfiguracji serwera OAUTH</td>
+<td>TAK</td>
+<td>Musi byc zgodne z serwerem OAUTH</td>
+</tr>
+<tr class="row-even"><td>urlAuthorize</td>
+<td>Url pod którym uruchamiana jest autoryzacja(panel logowania)</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>urlAccessToken</td>
+<td>Url pod którym SAREhub może pobrać nowe tokeny</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>urlResourceOwnerDetails</td>
+<td>Url pod którym SAREhub może pobrać dane konta z którym jest wykonywana integracja</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>provider</td>
+<td>Określenie silnika integracji oauth</td>
+<td>NIE</td>
+<td>Domyślnie <em>sarehub_generic</em> lub nieokreślone, chyba, że wskazano inaczej</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;clientId&quot;</span><span class="p">:</span> <span class="s2">&quot;idKlientaOauth&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;clientSecret&quot;</span><span class="p">:</span> <span class="s2">&quot;secretKlientaOauth&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;urlAuthorize&quot;</span><span class="p">:</span> <span class="s2">&quot;https://system.pl/oauth/authorize&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;urlAccessToken&quot;</span><span class="p">:</span> <span class="s2">&quot;https://system.pl/oauth/token&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;urlResourceOwnerDetails&quot;</span><span class="p">:</span> <span class="s2">&quot;https://system.pl/oauth/account&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="restrykcje-dla-integracji-restrictions">
+<h3>Restrykcje dla integracji - restrictions<a class="headerlink" href="#restrykcje-dla-integracji-restrictions" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Pozwala na wskazanie ograniczeń dla danej integracji</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="76%" />
+<col width="9%" />
+<col width="6%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>count</td>
+<td>Ograniczenie liczby integracji jakie może wykonać użytkownik z integrowanym systemem</td>
+<td>Nie</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="module.html" class="btn btn-neutral float-right" title="Moduły" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="preprocesor.html" class="btn btn-neutral float-left" title="Wstępne parsowanie pliku" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, SARE S.A.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="pl" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="pl" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Wstępne parsowanie pliku &mdash; SAREhub Panel 1.0.0 - dokumentacja</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://media.readthedocs.org/css/sphinx_rtd_theme.css" type="text/css" />
+  <link rel="stylesheet" href="https://media.readthedocs.org/css/readthedocs-doc-embed.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/extra.css" type="text/css" />
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="System" href="system.html" />
+    <link rel="prev" title="Wstęp" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SAREhub Panel
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Wstęp</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Wstępne parsowanie pliku</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dyrektywy-parsowania">Dyrektywy parsowania</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dyrektywy-warunkowe">Dyrektywy warunkowe</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#anyof">&#64;anyOf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#oneof">&#64;oneOf</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#expresion">expresion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#formatter">&#64;formatter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#render">&#64;Render</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="system.html">System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">Moduły</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flowchart.html">Flowchart - Bloczki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Obsługa zdarzeń</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SAREhub Panel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Wstępne parsowanie pliku</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/preprocesor.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="wstepne-parsowanie-pliku">
+<h1>Wstępne parsowanie pliku<a class="headerlink" href="#wstepne-parsowanie-pliku" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Konfiguracja przed właściwym użyciem przez silnik jest wstępnie parsowany.
+Ten proces może być kontrolowany przy użyciu dyrektyw preprocesora.</p>
+<div class="section" id="dyrektywy-parsowania">
+<h2>Dyrektywy parsowania<a class="headerlink" href="#dyrektywy-parsowania" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="section" id="dyrektywy-warunkowe">
+<h3>Dyrektywy warunkowe<a class="headerlink" href="#dyrektywy-warunkowe" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Dyrektywy warunkowe <strong>MUSZĄ</strong> być zdefiniowane wg. poniższego schematu:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;conditionsDirectives&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&quot;if&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;oneOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;warunek do spełnienia&quot;</span>
+                  <span class="p">},</span>
+                  <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;tablica składowych warunku do spełnienia&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+                      <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&quot;condition&quot;</span><span class="p">:</span> <span class="p">{</span>
+                          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                          <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;warunek do spełnienia&quot;</span>
+                        <span class="p">},</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="p">{</span>
+                          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                          <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;typ łączenia warunku&quot;</span><span class="p">,</span>
+                          <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
+                            <span class="s2">&quot;AND&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;OR&quot;</span>
+                          <span class="p">]</span>
+                        <span class="p">}</span>
+                      <span class="p">}</span>
+                    <span class="p">}</span>
+                  <span class="p">}</span>
+                <span class="p">]</span>
+              <span class="p">},</span>
+              <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;zawartość ktora ma być użyta jeśli zostanie spełnione wyrażenie&quot;</span>
+              <span class="p">}</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;oneOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;@anyOf&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/conditionsDirectives&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;@oneOf&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/conditionsDirectives&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="anyof">
+<h4>&#64;anyOf<a class="headerlink" href="#anyof" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Dyrektywa pozwala na zdefiniowane listy konfiguracji które mają być wybrane jeśli zostaną spełnione określone warunki.</p>
+</div>
+<div class="section" id="oneof">
+<h4>&#64;oneOf<a class="headerlink" href="#oneof" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Dyrektywa pozwala na wybranie wyłącznie jednego wariantu po spełnieniu warunku.
+Przy parsowaniu jeden warunek <strong>MUSI</strong> zostać spełniony, więc zalecane jest,
+aby ostatnii warunek był określony przez wyrażenie true. Jeśli warunek zostanie spełniony parsowanie zostanie zatrzymane.</p>
+<p>Poniższa tabela przedstawia najważniejsze różnice miedzy dyrektywami &#64;oneOf i &#64;anyOf:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="13%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" colspan="2">&#64;oneOf</th>
+<th class="head">&#64;anyOf</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td colspan="2">Przynajmniej jeden warunek musi zostać spełniony</td>
+<td>Żaden warunek nie musi być spełniony</td>
+</tr>
+<tr class="row-odd"><td colspan="2">Maksymalnie jeden warunek może zostać spełniony</td>
+<td>Wszystkie warunki mogą być spełnione</td>
+</tr>
+<tr class="row-even"><td colspan="2">Parsowanie zostanie zatrzymane przy|
+pierwszym spełnionym warunku</td>
+<td>Parsowanie zostanie zatrzymane
+po sprawdzeniu wszystkich warunków</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="expresion">
+<h3>expresion<a class="headerlink" href="#expresion" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Preprocesor pozwala na wstawienie wyniku wyrażenia lub zmiennych we wskazane miejsce.
+Wyrażenie <strong>MUSI</strong> być wstawione w postaci <em>{{wyrażenie}}</em>.
+W jednym polu może znajdować się wiele bloków wyrażeń.</p>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;exp1&quot;</span> <span class="p">:</span> <span class="s2">&quot;{{settings[0]}} {{settings[1]}}&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;exp2&quot;</span> <span class="p">:</span> <span class="s2">&quot;{{settings[0] * settings[1}}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="formatter">
+<h3>&#64;formatter<a class="headerlink" href="#formatter" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Dyrektywa pozwala na przeformatowanie bloku konfiguracji z jednego typu na drugi.</p>
+<p>Definicja preprocesora <strong>MUSI</strong> być zdefiniowana wg schematu:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;@formatter&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;type formatu&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+<p>Obecnie jedynym dostępnym typem jest <em>string</em> który zamienia obiekt lub tablicę do typu tekstowego.</p>
+<p>Typ <strong>MUSI</strong> być zdefiniowany wg schematu:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;@formatter&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;type formatu&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;concat&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;opcjonalny łącznik&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="render">
+<h3>&#64;Render<a class="headerlink" href="#render" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Dyrektywa pozwala na wstawienie wyniku parsowania zewnętrznego pliku.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;@Render&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;typ parsera&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;twig&quot;</span><span class="p">],</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;względna ścieżka do pliku, relatywnie do system.json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="system.html" class="btn btn-neutral float-right" title="System" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Wstęp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, SARE S.A.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
