@@ -166,20 +166,68 @@
             
   <div class="section" id="moduly">
 <h1>Moduły<a class="headerlink" href="#moduly" title="Stały odnośnik do tego nagłówka">¶</a></h1>
-<p>Każdy system <strong>MUSI</strong> posiadać definicję dla co najmniej jednego modułu. A każdy moduł musi być zdefiniowany według schematu:</p>
+<p>Każdy system <strong>MUSI</strong> posiadać definicję dla co najmniej jednego modułu.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="45%" />
+<col width="6%" />
+<col width="37%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>name</td>
+<td>Unikalny nazwa modułu</td>
+<td>TAK</td>
+<td>Maksymalnie 32 znaki A-Z, a-z, 0-9, -, _</td>
+</tr>
+<tr class="row-odd"><td>label</td>
+<td>Nazwa modułu wyświetlana w panelu</td>
+<td>TAK</td>
+<td>Maksymalnie 255 znaków</td>
+</tr>
+<tr class="row-even"><td>interface_config</td>
+<td>Obiekt określający zmienne do wykorzystania przy budowaniu formularza</td>
+<td>NIE</td>
+<td>Opis szczegółowy poniżej</td>
+</tr>
+<tr class="row-odd"><td>event</td>
+<td>Obiekt zawierający konfigurację obsługi zdarzeń</td>
+<td>NIE</td>
+<td>Opis szczegółowy poniżej</td>
+</tr>
+<tr class="row-even"><td>functionality</td>
+<td>Obiekt zawierający konfigurację funkcjonalności</td>
+<td>TAK</td>
+<td>Lista definicji funkcjonalności (bloczków na flowcharcie)</td>
+</tr>
+<tr class="row-odd"><td>save</td>
+<td>Obiekt zawierający konfigurację zapisu modułu</td>
+<td>TAK</td>
+<td>Opis szczegółowy poniżej</td>
+</tr>
+<tr class="row-even"><td>translation</td>
+<td>Obiekt zawierający zbiór tłumaczeń używanych w module</td>
+<td>TAK</td>
+<td>Opis szczegółowy poniżej</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;unikalny identyfikator modułu&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;pattern&quot;</span> <span class="p">:</span> <span class="s2">&quot;^[A-Za-z\d]+$&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;nazwa modułu wyświetlana w panelu&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;nazwa_modułu&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Wyświetlana nazwa modułu&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;interface_config&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="nt">&quot;event&quot;</span> <span class="p">:</span> <span class="p">{},</span>
+  <span class="nt">&quot;functionality&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="nt">&quot;save&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="nt">&quot;translation&quot;</span><span class="p">:</span> <span class="p">{}</span>
 <span class="p">}</span>
 </pre></div>
 </div>

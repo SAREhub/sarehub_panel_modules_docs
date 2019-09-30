@@ -2,7 +2,7 @@
 System
 ######
 
-Definicja systemu jest podstawową częścią integracji i stanowi wejście dla reszty konfiguracji:
+Definicja systemu jest podstawową częścią integracji i stanowi wejście dla reszty konfiguracji w pliku *system.json*:
 
 +---------------+--------------------------------------------------------+----------+------------------------------------------+
 |   Parametr    |                          Opis                          | Wymagane |                  Uwagi                   |
@@ -15,7 +15,7 @@ Definicja systemu jest podstawową częścią integracji i stanowi wejście dla 
 +---------------+--------------------------------------------------------+----------+------------------------------------------+
 | description   | Opis systemu                                           | NIE      |                                          |
 +---------------+--------------------------------------------------------+----------+------------------------------------------+
-| version       | Wersja konfiguracji systemu                            | TAK      | Wersja w formacie Minor.Manor.Build      |
+| version       | Wersja konfiguracji systemu                            | TAK      | Wersja w formacie Major.Minor.Patch      |
 +---------------+--------------------------------------------------------+----------+------------------------------------------+
 | authorization | Obiekt zawierający konfigurację autoryzacji integracji | TAK      | Opis szczegółowy poniżej                 |
 +---------------+--------------------------------------------------------+----------+------------------------------------------+
@@ -32,7 +32,7 @@ Przykład:
       "logo": "test.pl/logo.png",
       "description": "Opis systemu",
       "version": "1.0.0",
-      "authorization" : {},
+      "config" : {},
       "modules": []
     }
 

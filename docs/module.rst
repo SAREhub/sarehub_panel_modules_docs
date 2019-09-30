@@ -2,21 +2,36 @@
 Moduły
 ######
 
-Każdy system **MUSI** posiadać definicję dla co najmniej jednego modułu. A każdy moduł musi być zdefiniowany według schematu:
+Każdy system **MUSI** posiadać definicję dla co najmniej jednego modułu. 
+
++------------------+-----------------------------------------------------------------------+----------+-----------------------------------------------------------+
+|     Parametr     |                                 Opis                                  | Wymagane |                           Uwagi                           |
++==================+=======================================================================+==========+===========================================================+
+| name             | Unikalny nazwa modułu                                                 | TAK      | Maksymalnie 32 znaki A-Z, a-z, 0-9, -, _                  |
++------------------+-----------------------------------------------------------------------+----------+-----------------------------------------------------------+
+| label            | Nazwa modułu wyświetlana w panelu                                     | TAK      | Maksymalnie 255 znaków                                    |
++------------------+-----------------------------------------------------------------------+----------+-----------------------------------------------------------+
+| interface_config | Obiekt określający zmienne do wykorzystania przy budowaniu formularza | NIE      | Opis szczegółowy poniżej                                  |
++------------------+-----------------------------------------------------------------------+----------+-----------------------------------------------------------+
+| event            | Obiekt zawierający konfigurację obsługi zdarzeń                       | NIE      | Opis szczegółowy poniżej                                  |
++------------------+-----------------------------------------------------------------------+----------+-----------------------------------------------------------+
+| functionality    | Obiekt zawierający konfigurację funkcjonalności                       | TAK      | Lista definicji funkcjonalności (bloczków na flowcharcie) |
++------------------+-----------------------------------------------------------------------+----------+-----------------------------------------------------------+
+| save             | Obiekt zawierający konfigurację zapisu modułu                         | TAK      | Opis szczegółowy poniżej                                  |
++------------------+-----------------------------------------------------------------------+----------+-----------------------------------------------------------+
+| translation      | Obiekt zawierający zbiór tłumaczeń używanych w module                 | TAK      | Opis szczegółowy poniżej                                  |
++------------------+-----------------------------------------------------------------------+----------+-----------------------------------------------------------+
+
+Przykład:
 
 .. code-block:: json
 
     {
-      "type": "object",
-      "properties": {
-        "id": {
-          "title": "unikalny identyfikator modułu",
-          "pattern" : "^[A-Za-z\d]+$",
-          "type": "string"
-        },
-        "label": {
-          "title": "nazwa modułu wyświetlana w panelu",
-          "type": "string"
-        }
-      }
+      "name": "nazwa_modułu",
+      "label": "Wyświetlana nazwa modułu",
+      "interface_config": {},
+      "event" : {},
+      "functionality": {},
+      "save": {},
+      "translation": {}
     }
