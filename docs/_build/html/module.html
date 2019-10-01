@@ -97,7 +97,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="preprocesor.html">Wstępne parsowanie pliku</a></li>
 <li class="toctree-l1"><a class="reference internal" href="system.html">System</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Moduły</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Moduły</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#definicja-zmiennych-interface-config">Definicja zmiennych - interface_config</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="flowchart.html">Flowchart - Bloczki</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Obsługa zdarzeń</a></li>
 </ul>
@@ -185,7 +188,7 @@
 <tr class="row-even"><td>name</td>
 <td>Unikalny nazwa modułu</td>
 <td>TAK</td>
-<td>Maksymalnie 32 znaki A-Z, a-z, 0-9, -, _</td>
+<td>Maksymalnie 32 znaki w formacie A-Z, a-z, 0-9, -, _</td>
 </tr>
 <tr class="row-odd"><td>label</td>
 <td>Nazwa modułu wyświetlana w panelu</td>
@@ -230,6 +233,62 @@
   <span class="nt">&quot;translation&quot;</span><span class="p">:</span> <span class="p">{}</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="section" id="definicja-zmiennych-interface-config">
+<h2>Definicja zmiennych - interface_config<a class="headerlink" href="#definicja-zmiennych-interface-config" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Służy głównie do zdefiniowania zmiennych które mają&nbsp;zostać wstawione w definicję formularza funkcjonalności i umożliwia pobranie zasobu z integrowanego systemu.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="35%" />
+<col width="5%" />
+<col width="51%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>apiGlobals</td>
+<td>Lista stałych to zastąpienia w definicjach zmiennych <strong>apiVariable</strong></td>
+<td>NIE</td>
+<td>Tablica gdzie wartością jest nazwa zmiennej w formacie <strong>A-Z, _</strong>, a wartoscią pola jest wartość stałej</td>
+</tr>
+<tr class="row-odd"><td>label</td>
+<td>Nazwa modułu wyświetlana w panelu</td>
+<td>TAK</td>
+<td>Maksymalnie 255 znaków</td>
+</tr>
+<tr class="row-even"><td>interface_config</td>
+<td>Obiekt określający zmienne do wykorzystania przy budowaniu formularza</td>
+<td>NIE</td>
+<td>Opis szczegółowy poniżej</td>
+</tr>
+<tr class="row-odd"><td>event</td>
+<td>Obiekt zawierający konfigurację obsługi zdarzeń</td>
+<td>NIE</td>
+<td>Opis szczegółowy poniżej</td>
+</tr>
+<tr class="row-even"><td>functionality</td>
+<td>Obiekt zawierający konfigurację funkcjonalności</td>
+<td>TAK</td>
+<td>Lista definicji funkcjonalności (bloczków na flowcharcie)</td>
+</tr>
+<tr class="row-odd"><td>save</td>
+<td>Obiekt zawierający konfigurację zapisu modułu</td>
+<td>TAK</td>
+<td>Opis szczegółowy poniżej</td>
+</tr>
+<tr class="row-even"><td>translation</td>
+<td>Obiekt zawierający zbiór tłumaczeń używanych w module</td>
+<td>TAK</td>
+<td>Opis szczegółowy poniżej</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
