@@ -176,10 +176,10 @@
 <p>Definicja systemu jest podstawową częścią integracji i stanowi wejście dla reszty konfiguracji w pliku <em>system.json</em>:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="11%" />
-<col width="42%" />
-<col width="7%" />
-<col width="40%" />
+<col width="8%" />
+<col width="30%" />
+<col width="5%" />
+<col width="57%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Parametr</th>
@@ -219,7 +219,12 @@
 <td>TAK</td>
 <td>Opis szczegółowy poniżej</td>
 </tr>
-<tr class="row-even"><td>modules</td>
+<tr class="row-even"><td>vars</td>
+<td>Obiekt zawierający globalne stałe do użycia w konfiguracji</td>
+<td>TAK</td>
+<td>Kluczem jest nazwa, wartością jest wartość stałej. Mogą zostać nadpisane indywidualnie dla klienta w systemie.</td>
+</tr>
+<tr class="row-odd"><td>modules</td>
 <td>Tablica zawierająca definicje modułów</td>
 <td>TAK</td>
 <td>Lista definicji <a class="reference internal" href="module.html"><span class="doc">modułów</span></a></td>
@@ -233,7 +238,12 @@
   <span class="nt">&quot;logo&quot;</span><span class="p">:</span> <span class="s2">&quot;test.pl/logo.png&quot;</span><span class="p">,</span>
   <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Opis systemu&quot;</span><span class="p">,</span>
   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;config&quot;</span> <span class="p">:</span> <span class="p">{},</span>
+  <span class="nt">&quot;authorization&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">},</span>
+  <span class="nt">&quot;vars&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;var1&quot;</span><span class="p">:</span> <span class="s2">&quot;test val&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;var2&quot;</span><span class="p">:</span> <span class="mi">1</span>
+
+  <span class="p">},</span>
   <span class="nt">&quot;modules&quot;</span><span class="p">:</span> <span class="p">[]</span>
 <span class="p">}</span>
 </pre></div>
