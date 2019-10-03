@@ -16,18 +16,16 @@ Wstęp
    preprocesor
    system
    module
-   flowchart
-   events
 
 
 Wejściowym plikiem dla zdefiniowanej konfiguracji **MUSI** być plik *system.json*, który określa system z którym jest definiowana konfiguracja.
 
 Format i struktura plików
-=========================
+*************************
 Konfigurację **MUSI** być zdefiniowana w pliku JSON.
 
 Podział pliku
--------------
+=============
 Mimo że całą konfigurację można zapisać w jednym pliku, możliwy jest podział konfiguracji na wiele plików.
 Odnośnik do zewnętrznego pliku należy zdefiniować pod właściwością *@ref*, gdzie wartością **MUSI** być ścieżka do dołączanego pliku relatywnie do pliku *system.json*.
 

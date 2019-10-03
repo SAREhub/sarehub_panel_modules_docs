@@ -98,7 +98,17 @@
 <li class="toctree-l1"><a class="reference internal" href="preprocesor.html">Wstępne parsowanie pliku</a></li>
 <li class="toctree-l1"><a class="reference internal" href="system.html">System</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Moduły</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#definicja-zmiennych-interface-config">Definicja zmiennych - interface_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#definicja-zmiennych-interface-config">Definicja zmiennych - interface_config</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#definicja-zapytania-apivariable">Definicja zapytania - apiVariable</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#definicja-zdarzen-event">Definicja zdarzeń - event</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dostepne-funkcje-nasluchujace">Dostępne funkcje nasłuchujące</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#entitychangedlistener">entityChangedListener</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="flowchart.html">Flowchart - Bloczki</a></li>
@@ -239,10 +249,10 @@
 <p>Służy głównie do zdefiniowania zmiennych które mają&nbsp;zostać wstawione w definicję formularza funkcjonalności i umożliwia pobranie zasobu z integrowanego systemu.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="9%" />
-<col width="35%" />
-<col width="5%" />
-<col width="51%" />
+<col width="8%" />
+<col width="38%" />
+<col width="4%" />
+<col width="50%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Parametr</th>
@@ -253,42 +263,273 @@
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>apiGlobals</td>
-<td>Lista stałych to zastąpienia w definicjach zmiennych <strong>apiVariable</strong></td>
+<td>Lista zmiennych to zastąpienia w definicjach zmiennych <strong>apiVariable</strong></td>
 <td>NIE</td>
 <td>Tablica gdzie wartością jest nazwa zmiennej w formacie <strong>A-Z, _</strong>, a wartoscią pola jest wartość stałej</td>
 </tr>
-<tr class="row-odd"><td>label</td>
-<td>Nazwa modułu wyświetlana w panelu</td>
-<td>TAK</td>
-<td>Maksymalnie 255 znaków</td>
-</tr>
-<tr class="row-even"><td>interface_config</td>
-<td>Obiekt określający zmienne do wykorzystania przy budowaniu formularza</td>
+<tr class="row-odd"><td>apiVariable</td>
+<td>Lista zmiennych to zastąpienia w definicjach formularzy funkcjonalności</td>
 <td>NIE</td>
-<td>Opis szczegółowy poniżej</td>
+<td>Tablica gdzie wartością jest nazwa zmiennej w formacie <strong>A-Z, _</strong>, a wartoscią definicja zapytania do zewnętrznego API</td>
 </tr>
-<tr class="row-odd"><td>event</td>
-<td>Obiekt zawierający konfigurację obsługi zdarzeń</td>
+<tr class="row-even"><td>prependApiVariable</td>
+<td>Pozwala na wstawienie wartości do zmiennych z <strong>apiVariable</strong> przed tymi pobranymi z API</td>
 <td>NIE</td>
-<td>Opis szczegółowy poniżej</td>
+<td>Tablica gdzie wartością jest nazwa zmiennej w formacie <strong>A-Z, _</strong></td>
 </tr>
-<tr class="row-even"><td>functionality</td>
-<td>Obiekt zawierający konfigurację funkcjonalności</td>
+<tr class="row-odd"><td>appendApiVariable</td>
+<td>Pozwala na wstawienie wartości do zmiennych z <strong>apiVariable</strong> za tymi pobranymi z API</td>
+<td>NIE</td>
+<td>Tablica gdzie wartością jest nazwa zmiennej w formacie <strong>A-Z, _</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="definicja-zapytania-apivariable">
+<h3>Definicja zapytania - apiVariable<a class="headerlink" href="#definicja-zapytania-apivariable" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Parametry definicji:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="37%" />
+<col width="11%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>url</td>
+<td>Url do zasobu</td>
 <td>TAK</td>
-<td>Lista definicji funkcjonalności (bloczków na flowcharcie)</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td>save</td>
-<td>Obiekt zawierający konfigurację zapisu modułu</td>
+<tr class="row-odd"><td>method</td>
+<td>Metoda HTTP</td>
 <td>TAK</td>
-<td>Opis szczegółowy poniżej</td>
+<td>GET, POST itp.</td>
 </tr>
-<tr class="row-even"><td>translation</td>
-<td>Obiekt zawierający zbiór tłumaczeń używanych w module</td>
+<tr class="row-even"><td>converter</td>
+<td>Metoda parsująca odpowiedz z API</td>
+<td>NIE</td>
+<td>Wymaga ustalenia z zespołem SAREhub</td>
+</tr>
+<tr class="row-odd"><td>options</td>
+<td>Obiekt opcji zapytania</td>
 <td>TAK</td>
 <td>Opis szczegółowy poniżej</td>
 </tr>
 </tbody>
 </table>
+<p>Opcje zapytania:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="30%" />
+<col width="7%" />
+<col width="53%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>headers</td>
+<td>Tablica nagłówków zapytania</td>
+<td>NIE</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>form_params</td>
+<td>Tablica parametrów wysłana w żądaniu POST</td>
+<td>NIE</td>
+<td>Tablica gdzie kluczem jest nazwa parametru, a wartością wartość parametru</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;VAR_MODULE&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://test.pl/api/test&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;converter&quot;</span><span class="p">:</span> <span class="s2">&quot;convertVarModule&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;headers&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;application/x-www-form-urlencoded&quot;</span>
+      <span class="p">],</span>
+      <span class="nt">&quot;form_params&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;param1&quot;</span><span class="p">:</span> <span class="s2">&quot;param2&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="definicja-zdarzen-event">
+<h2>Definicja zdarzeń - event<a class="headerlink" href="#definicja-zdarzen-event" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Pole posiada tylko jeden parametr - <em>listeners</em>, który pozwala na określenie listy wywołań funkcji w momencie wywołania przez system SAREhub określonych zdarzeń.</p>
+<p>Parametry definicji wywołania:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="45%" />
+<col width="13%" />
+<col width="29%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>type</td>
+<td>Nazwa funkcji do wywołania</td>
+<td>TAK</td>
+<td>Typy opisane poniżej</td>
+</tr>
+<tr class="row-odd"><td>config</td>
+<td>Dodatkowa konfiguracja wywołania</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="dostepne-funkcje-nasluchujace">
+<h3>Dostępne funkcje nasłuchujące<a class="headerlink" href="#dostepne-funkcje-nasluchujace" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="section" id="entitychangedlistener">
+<h4>entityChangedListener<a class="headerlink" href="#entitychangedlistener" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Funkcja pozwala na przeładowanie kampanii po wywołaniu zdarzenia.</p>
+<p>Parametry konfiguracji:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="65%" />
+<col width="11%" />
+<col width="8%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>functionality</td>
+<td>Lista funkcjonalności dla których ma być aktywne wywołanie</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>event</td>
+<td>Lista zdarzeń do nasłuchiwania</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="dostepne-zdarzenia">
+<h5>Dostępne zdarzenia<a class="headerlink" href="#dostepne-zdarzenia" title="Stały odnośnik do tego nagłówka">¶</a></h5>
+<div class="section" id="entity-changed">
+<h6>entity.changed<a class="headerlink" href="#entity-changed" title="Stały odnośnik do tego nagłówka">¶</a></h6>
+<p>Zdarzenie wyłowywane gdy zostanie zaktualizowana określona encja.</p>
+<p>Konfiguracja zdarzenia:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="27%" />
+<col width="5%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>entity</td>
+<td>Lista encji przy których ma zostac wywołana funkcja</td>
+<td>TAK</td>
+<td>Tablica gdzie kluczem jest nazwa encji, a wartoscią jest tablica identyfikatorów pól z definicji formularza funkcjonalności</td>
+</tr>
+</tbody>
+</table>
+<p>Lista encji:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Encja</th>
+<th class="head">Opis</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>testGroup</td>
+<td>Grupy testowe, należy wstawić null jako pierwszy element</td>
+</tr>
+<tr class="row-odd"><td>notificationsTemplate</td>
+<td>Szablon powiadomienia webpush</td>
+</tr>
+<tr class="row-even"><td>personalizationTemplate</td>
+<td>Szablon personalizacji</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;event&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;listeners&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;entityChangedListener&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;functionality&quot;</span><span class="p">:</span> <span class="p">[</span>
+              <span class="s2">&quot;notifications&quot;</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;event&quot;</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;entity.changed&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="nt">&quot;entity&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;testGroup&quot;</span><span class="p">:</span> <span class="p">[</span>
+                      <span class="kc">null</span>
+                    <span class="p">],</span>
+                    <span class="nt">&quot;notificationsTemplate&quot;</span><span class="p">:</span> <span class="p">[</span>
+                      <span class="s2">&quot;notification_template_id&quot;</span>
+                    <span class="p">],</span>
+                    <span class="nt">&quot;personalizationTemplate&quot;</span><span class="p">:</span> <span class="p">[</span>
+                      <span class="s2">&quot;web_push_personalization&quot;</span>
+                    <span class="p">]</span>
+                  <span class="p">}</span>
+                <span class="p">}</span>
+              <span class="p">}</span>
+            <span class="p">]</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span><span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">},</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
