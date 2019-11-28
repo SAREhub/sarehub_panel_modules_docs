@@ -39,7 +39,6 @@
   <link rel="stylesheet" href="_static/css/extra.css" type="text/css" />
     <link rel="index" title="Indeks" href="genindex.html" />
     <link rel="search" title="Szukaj" href="search.html" />
-    <link rel="next" title="Flowchart - Bloczki" href="flowchart.html" />
     <link rel="prev" title="System" href="system.html" /> 
 </head>
 
@@ -104,15 +103,22 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#definicja-zdarzen-event">Definicja zdarzeń - event</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#dostepne-funkcje-nasluchujace">Dostępne funkcje nasłuchujące</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apicalllistener">apiCallListener</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#entitychangedlistener">entityChangedListener</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integrationidentitylistener">integrationIdentityListener</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#zapis-modulu-save">Zapis modułu - save</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#wywolanie-api-api-call">Wywołanie API - api-call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zapis-zalezny-od-konfiguracji-multi">Zapis zależny od konfiguracji - multi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zapis-do-mongodb-mongo-api">Zapis do MongoDB - mongo-api</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="flowchart.html">Flowchart - Bloczki</a></li>
-<li class="toctree-l1"><a class="reference internal" href="events.html">Obsługa zdarzeń</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tlumaczenia-translation">Tłumaczenia - translation</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -178,12 +184,12 @@
            <div itemprop="articleBody">
             
   <div class="section" id="moduly">
-<h1>Moduły<a class="headerlink" href="#moduly" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<span id="module-ref"></span><h1>Moduły<a class="headerlink" href="#moduly" title="Stały odnośnik do tego nagłówka">¶</a></h1>
 <p>Każdy system <strong>MUSI</strong> posiadać definicję dla co najmniej jednego modułu.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="11%" />
-<col width="45%" />
+<col width="12%" />
+<col width="46%" />
 <col width="6%" />
 <col width="37%" />
 </colgroup>
@@ -218,7 +224,7 @@
 <tr class="row-even"><td>functionality</td>
 <td>Obiekt zawierający konfigurację funkcjonalności</td>
 <td>TAK</td>
-<td>Lista definicji funkcjonalności (bloczków na flowcharcie)</td>
+<td>Lista definicji <a class="reference internal" href="functionality.html"><span class="doc">funkcjonalności</span></a></td>
 </tr>
 <tr class="row-odd"><td>save</td>
 <td>Obiekt zawierający konfigurację zapisu modułu</td>
@@ -407,6 +413,107 @@
 </table>
 <div class="section" id="dostepne-funkcje-nasluchujace">
 <h3>Dostępne funkcje nasłuchujące<a class="headerlink" href="#dostepne-funkcje-nasluchujace" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="section" id="apicalllistener">
+<h4>apiCallListener<a class="headerlink" href="#apicalllistener" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Funkcja pozwala na wywołanie metody API.</p>
+<p>Parametry konfiguracji:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="53%" />
+<col width="18%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>client</td>
+<td>Identyfikator klienta Guzzle</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>request</td>
+<td>Konfiguracja żądania do API</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Parametry konfiguracji żądania</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="25%" />
+<col width="17%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>method</td>
+<td>Metoda HTTP</td>
+<td>TAK</td>
+<td>GET, POST itp.</td>
+</tr>
+<tr class="row-odd"><td>url</td>
+<td>Url do zasobu</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>options</td>
+<td>Opcję żądania</td>
+<td>TAK</td>
+<td>Opcję zgodne z <a class="reference external" href="http://docs.guzzlephp.org/en/stable/request-options.html">Guzzle</a>.</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="dostepne-zdarzenia">
+<h5>Dostępne zdarzenia<a class="headerlink" href="#dostepne-zdarzenia" title="Stały odnośnik do tego nagłówka">¶</a></h5>
+<div class="section" id="campaign-started">
+<h6>campaign.started<a class="headerlink" href="#campaign-started" title="Stały odnośnik do tego nagłówka">¶</a></h6>
+<p>Zdarzenie wyłowywane gdy zostanie uruchomiona kampania.</p>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;event&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;listeners&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;apiCallListener&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;client&quot;</span><span class="p">:</span> <span class="s2">&quot;test_api&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;request&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+              <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;resource/1&quot;</span><span class="p">,</span>
+              <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span>
+              <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;campaign.started&quot;</span><span class="p">,</span>
+              <span class="p">}</span>
+            <span class="p">]</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span><span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">},</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="entitychangedlistener">
 <h4>entityChangedListener<a class="headerlink" href="#entitychangedlistener" title="Stały odnośnik do tego nagłówka">¶</a></h4>
 <p>Funkcja pozwala na przeładowanie kampanii po wywołaniu zdarzenia.</p>
@@ -438,8 +545,8 @@
 </tr>
 </tbody>
 </table>
-<div class="section" id="dostepne-zdarzenia">
-<h5>Dostępne zdarzenia<a class="headerlink" href="#dostepne-zdarzenia" title="Stały odnośnik do tego nagłówka">¶</a></h5>
+<div class="section" id="id1">
+<h5>Dostępne zdarzenia<a class="headerlink" href="#id1" title="Stały odnośnik do tego nagłówka">¶</a></h5>
 <div class="section" id="entity-changed">
 <h6>entity.changed<a class="headerlink" href="#entity-changed" title="Stały odnośnik do tego nagłówka">¶</a></h6>
 <p>Zdarzenie wyłowywane gdy zostanie zaktualizowana określona encja.</p>
@@ -529,6 +636,297 @@
 </div>
 </div>
 </div>
+<div class="section" id="integrationidentitylistener">
+<h4>integrationIdentityListener<a class="headerlink" href="#integrationidentitylistener" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Funkcja pozwala na modyfikację identyfikatorów SAREweb</p>
+<p>Parametry konfiguracji:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="65%" />
+<col width="11%" />
+<col width="8%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>event</td>
+<td>Lista zdarzeń do nasłuchiwania</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id2">
+<h5>Dostępne zdarzenia<a class="headerlink" href="#id2" title="Stały odnośnik do tego nagłówka">¶</a></h5>
+<div class="section" id="integration-completed">
+<h6>integration.completed<a class="headerlink" href="#integration-completed" title="Stały odnośnik do tego nagłówka">¶</a></h6>
+<p>Zdarzenie wyłowywane po poprawnej integracji systemu.</p>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;event&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;listeners&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integrationIdentityListener&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;event&quot;</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;entity.changed&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{}</span>
+              <span class="p">}</span>
+            <span class="p">]</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span><span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">},</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="integration-deleted">
+<h6>integration.deleted<a class="headerlink" href="#integration-deleted" title="Stały odnośnik do tego nagłówka">¶</a></h6>
+<p>Zdarzenie wyłowywane po poprawnym usunięciu integracji.</p>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;event&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;listeners&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integrationIdentityListener&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;event&quot;</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;entity.deleted&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{}</span>
+              <span class="p">}</span>
+            <span class="p">]</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span><span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">},</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="zapis-modulu-save">
+<h2>Zapis modułu - save<a class="headerlink" href="#zapis-modulu-save" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Służy do określenia w jaki sposób konfiguracja modułu ma być zapisana do wykożystania w flow kampanii.
+Zapis modułu wywoływany jest w momencie uruchomienia kampanii.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="36%" />
+<col width="17%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>type</td>
+<td>Typ obsługi zapisu</td>
+<td>TAK</td>
+<td>Opisane poniżej</td>
+</tr>
+<tr class="row-odd"><td>config</td>
+<td>Konfiguracja zapisu</td>
+<td>TAK</td>
+<td>Zależnie od typu</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="wywolanie-api-api-call">
+<h3>Wywołanie API - api-call<a class="headerlink" href="#wywolanie-api-api-call" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Pozwala na zapis konfiguracji modulu w określonym API.</p>
+<p>Parametry konfiguracji:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="53%" />
+<col width="18%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>client</td>
+<td>Identyfikator klienta Guzzle</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>request</td>
+<td>Konfiguracja żądania do API</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Parametry konfiguracji żądania</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="25%" />
+<col width="17%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>method</td>
+<td>Metoda HTTP</td>
+<td>TAK</td>
+<td>GET, POST itp.</td>
+</tr>
+<tr class="row-odd"><td>url</td>
+<td>Url do zasobu</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>options</td>
+<td>Opcję żądania</td>
+<td>TAK</td>
+<td>Opcję zgodne z <a class="reference external" href="http://docs.guzzlephp.org/en/stable/request-options.html">Guzzle</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;save&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;api-call&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;client&quot;</span><span class="p">:</span> <span class="s2">&quot;test_client&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;request&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;resource/1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;json&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="zapis-zalezny-od-konfiguracji-multi">
+<h3>Zapis zależny od konfiguracji - multi<a class="headerlink" href="#zapis-zalezny-od-konfiguracji-multi" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Pozwala na określenie konfiguracji zależnie od funkcjonalności:</p>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;save&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;multi&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;functionality&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;func1&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;api-call&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;func2&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;mongo-api&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{}</span>
+        <span class="p">},</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="zapis-do-mongodb-mongo-api">
+<h3>Zapis do MongoDB - mongo-api<a class="headerlink" href="#zapis-do-mongodb-mongo-api" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Pozwala na zapis konfiguracji modulu w bazie MongoDB. Typ używany głównie w wewnętrznych modułach systemu SAREhub.</p>
+<p>Parametry konfiguracji:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="32%" />
+<col width="14%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>module</td>
+<td>Nazwa modułu</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>rule</td>
+<td>Reguła w formacie JSON</td>
+<td>TAK</td>
+<td>Reguły sa łączone dla modułu</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;save&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;mongo-api&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;test_module&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;rule&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;event&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;condition&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="tlumaczenia-translation">
+<h2>Tłumaczenia - translation<a class="headerlink" href="#tlumaczenia-translation" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Definicja tłumaczeń do użycia w konfiguracji formularzy.</p>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;translation&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;pl&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;nazwa&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Tłumaczenia w formularzach można użyć poprzez dyrektywę %TRANSLATE|klucz_w_translacji%.</p>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|name&quot;</span>
+<span class="p">}</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -541,8 +939,6 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="flowchart.html" class="btn btn-neutral float-right" title="Flowchart - Bloczki" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
       
         <a href="system.html" class="btn btn-neutral float-left" title="System" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
@@ -553,7 +949,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, SARE S.A.
+        &copy; Copyright 2019, Digitree Group S.A.
 
     </p>
   </div> 
