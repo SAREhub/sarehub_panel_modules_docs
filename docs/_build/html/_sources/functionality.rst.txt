@@ -111,7 +111,7 @@ Przykład:
 
     {
       "id": "param1",
-      "type": "text",
+      "type": "number",
       "label": "%TRANSLATE|pole_tekstowe%",
       "placeholder": "%TRANSLATE|podpowiedz_pola%",
       "required": true,
@@ -476,4 +476,151 @@ Przykład:
       "style": {
         "margin-top": "24px"
       }
+    }
+
+
+Pola zależne 
+============
+
+Prosta zależność
+----------------
+
+Jeśli jest potrzeba ukazania pola zależnie od wypełnienia innego pola,
+należy użyć właściwości **show_if**, która jest tablicą identyfikatorów od którego zależy pole.
+
+Przykład:
+
+.. code-block:: json
+
+    {
+      "id": "param2",
+      "type": "select",
+      "label": "%TRANSLATE|rozwijana_lista%",
+      "required": true,
+      "show_if": [
+        "param1"
+      ],
+      "default": "option2",
+      "values": [
+          {
+            "id": "option1",
+            "label": "%TRANSLATE|opcja1%"
+          },
+          {
+            "id": "option2",
+            "label": "%TRANSLATE|opcja2%"
+          },
+          {
+            "id": "option3",
+            "label": "%TRANSLATE|opcja3%"
+          }
+      ]
+    }
+
+
+Dla pól *select*, *checkbox* oraz *radio* możliwe jest zdefiniowanie listy pól zależnych od wartosci pola rodzica.
+
+Zależności bez przeładowania - dependent
+----------------------------------------
+
+Jeśli nie jest wymagane przeładowanie całego formularza można użyć pola **dependent** (np. gdy pola zależne nie posiadają zmiennych)
+
+Przyklad:
+
+.. code-block:: json
+
+    {
+      "id": "param1",
+      "type": "select",
+      "label": "%TRANSLATE|rozwijana_lista%",
+      "required": true,
+      "default": "option2",
+      "values": [
+          {
+            "id": "option1",
+            "label": "%TRANSLATE|opcja1%"
+            "dependent": [
+              {
+                "id": "param2",
+                "type": "number",
+                "label": "%TRANSLATE|pole_tekstowe%",
+                "placeholder": "%TRANSLATE|podpowiedz_pola%",
+                "required": true,
+                "min": 1,
+                "max": 20,
+                "step": 2,
+              }
+            ]
+          },
+          {
+            "id": "option2",
+            "label": "%TRANSLATE|opcja2%"
+          },
+          {
+            "id": "option3",
+            "label": "%TRANSLATE|opcja3%"
+          }
+      ]
+    }
+
+Zależności z przeładowaniem - sub
+---------------------------------
+
+Jeśli pola zależne posiadają zmienne należy użyć **sub**. Dodając parametr *reload* do rodzica następuje wymuszenie przeładowania całego formularza.
+
+Przyklad:
+
+.. code-block:: json
+
+    {
+      "id": "param1",
+      "type": "select",
+      "label": "%TRANSLATE|rozwijana_lista%",
+      "required": true,
+      "reload": true,
+      "default": "option2",
+      "values": [
+          {
+            "id": "option1",
+            "label": "%TRANSLATE|opcja1%"
+            "sub": [
+              {
+                "id": "param2",
+                "type": "number",
+                "label": "%TRANSLATE|pole_tekstowe%",
+                "placeholder": "%TRANSLATE|podpowiedz_pola%",
+                "required": true,
+                "min": 1,
+                "max": 20,
+                "step": 2,
+              }
+            ]
+          },
+          {
+            "id": "option2",
+            "label": "%TRANSLATE|opcja2%"
+          },
+          {
+            "id": "option3",
+            "label": "%TRANSLATE|opcja3%"
+          }
+      ]
+    }
+
+Walidacja pól - fields
+======================
+
+Przed zapisaniem schematu kampanii każdy bloczek jest sprawdzany pod kątem poprawności uzupełnienia jego konfiguracji.
+Aby zdefiniować konfigurację należy przygotować model walidacji zgodny z `JSON Schema draft-07 <https://json-schema.org/draft-07/json-schema-release-notes.html>`_. 
+
+Konfiguracja bloczka zapisywana jest w obiekcie **settings** w którym kluczem jest identyfikator pola a wartościa kest wartość danego pola.
+
+.. code-block:: json
+
+    {
+      "...": "...",
+      "settings": {
+        "param1": "wartosc pola"
+      },
+      "...": "..."
     }

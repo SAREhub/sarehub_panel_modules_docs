@@ -116,6 +116,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#tekst-statyczny-paragraph">Tekst statyczny - paragraph</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#pola-zalezne">Pola zależne</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prosta-zaleznosc">Prosta zależność</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zaleznosci-bez-przeladowania-dependent">Zależności bez przeładowania - dependent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zaleznosci-z-przeladowaniem-sub">Zależności z przeładowaniem - sub</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#walidacja-pol-fields">Walidacja pól - fields</a></li>
 </ul>
 </li>
 </ul>
@@ -389,7 +396,7 @@ Funkcjonalność stanowi najbardziej podstawą cześć modułu systemu i składa
 <p>Przykład:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param1&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span>
   <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|pole_tekstowe%&quot;</span><span class="p">,</span>
   <span class="nt">&quot;placeholder&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|podpowiedz_pola%&quot;</span><span class="p">,</span>
   <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -984,6 +991,138 @@ Funkcjonalność stanowi najbardziej podstawą cześć modułu systemu i składa
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="section" id="pola-zalezne">
+<h3>Pola zależne<a class="headerlink" href="#pola-zalezne" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="section" id="prosta-zaleznosc">
+<h4>Prosta zależność<a class="headerlink" href="#prosta-zaleznosc" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Jeśli jest potrzeba ukazania pola zależnie od wypełnienia innego pola,
+należy użyć właściwości <strong>show_if</strong>, która jest tablicą identyfikatorów od którego zależy pole.</p>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;select&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|rozwijana_lista%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;show_if&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;param1&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;option2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja1%&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option2&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja2%&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option3&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja3%&quot;</span>
+      <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Dla pól <em>select</em>, <em>checkbox</em> oraz <em>radio</em> możliwe jest zdefiniowanie listy pól zależnych od wartosci pola rodzica.</p>
+</div>
+<div class="section" id="zaleznosci-bez-przeladowania-dependent">
+<h4>Zależności bez przeładowania - dependent<a class="headerlink" href="#zaleznosci-bez-przeladowania-dependent" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Jeśli nie jest wymagane przeładowanie całego formularza można użyć pola <strong>dependent</strong> (np. gdy pola zależne nie posiadają zmiennych)</p>
+<p>Przyklad:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;select&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|rozwijana_lista%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;option2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja1%&quot;</span>
+        <span class="s2">&quot;dependent&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param2&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|pole_tekstowe%&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;placeholder&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|podpowiedz_pola%&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;min&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;max&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="nt">&quot;step&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+          <span class="p">}</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option2&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja2%&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option3&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja3%&quot;</span>
+      <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="zaleznosci-z-przeladowaniem-sub">
+<h4>Zależności z przeładowaniem - sub<a class="headerlink" href="#zaleznosci-z-przeladowaniem-sub" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Jeśli pola zależne posiadają zmienne należy użyć <strong>sub</strong>. Dodając parametr <em>reload</em> do rodzica następuje wymuszenie przeładowania całego formularza.</p>
+<p>Przyklad:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;select&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|rozwijana_lista%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;reload&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;option2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja1%&quot;</span>
+        <span class="s2">&quot;sub&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param2&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|pole_tekstowe%&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;placeholder&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|podpowiedz_pola%&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;min&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;max&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="nt">&quot;step&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+          <span class="p">}</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option2&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja2%&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option3&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja3%&quot;</span>
+      <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="walidacja-pol-fields">
+<h3>Walidacja pól - fields<a class="headerlink" href="#walidacja-pol-fields" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Przed zapisaniem schematu kampanii każdy bloczek jest sprawdzany pod kątem poprawności uzupełnienia jego konfiguracji.
+Aby zdefiniować konfigurację należy przygotować model walidacji zgodny z <a class="reference external" href="https://json-schema.org/draft-07/json-schema-release-notes.html">JSON Schema draft-07</a>.</p>
+<p>Konfiguracja bloczka zapisywana jest w obiekcie <strong>settings</strong> w którym kluczem jest identyfikator pola a wartościa kest wartość danego pola.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;param1&quot;</span><span class="p">:</span> <span class="s2">&quot;wartosc pola&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span>
+<span class="p">}</span>
+</pre></div>
 </div>
 </div>
 </div>
