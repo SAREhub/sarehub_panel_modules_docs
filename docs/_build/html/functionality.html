@@ -38,7 +38,8 @@
   <link rel="stylesheet" href="https://media.readthedocs.org/css/readthedocs-doc-embed.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/extra.css" type="text/css" />
     <link rel="index" title="Indeks" href="genindex.html" />
-    <link rel="search" title="Szukaj" href="search.html" /> 
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="prev" title="Moduły" href="module.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -92,10 +93,33 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Wstęp</a></li>
 </ul>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="preprocesor.html">Wstępne parsowanie pliku</a></li>
 <li class="toctree-l1"><a class="reference internal" href="system.html">System</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module.html">Moduły</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Funkcjonalność</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#definicja-bloczka-node">Definicja bloczka - node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lista-wejsc-i-wyjsc-endpoints">Lista wejść i wyjść - endpoints</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#definicja-formularza-form">Definicja formularza - form</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lista-pol-fields">Lista pól - fields</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pole-tekstowe-text-url-email">Pole tekstowe - text, url, email</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pole-numeryczne-number">Pole numeryczne - number</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#obszar-tekstowy-textarea">Obszar tekstowy - textarea</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rozwijana-lista-select">Rozwijana lista - select</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#przycisk-radio-radio">Przycisk radio - radio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#przycisk-wyboru-checkbox">Przycisk wyboru - checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#wybor-daty-date">Wybór daty - date</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#wybor-dnia-tygodnia-week-picker">Wybór dnia tygodnia - week-picker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#grupy-pol-array">Grupy pól - array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tekst-statyczny-paragraph">Tekst statyczny - paragraph</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -162,6 +186,807 @@
             
   <div class="section" id="funkcjonalnosc">
 <span id="functionality-ref"></span><h1>Funkcjonalność<a class="headerlink" href="#funkcjonalnosc" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Każdy moduł MOŻE zawierać jedną lub kilka funkcjonalności.
+Funkcjonalność stanowi najbardziej podstawą cześć modułu systemu i składa sie głównie z „bloczka” w schemacie kampanii i formularza.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="64%" />
+<col width="13%" />
+<col width="9%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>label</td>
+<td>Nazwa funkcjonalności wyświetlana w systemie</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>config</td>
+<td>Konfiguracja funkcjonalności</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>node</td>
+<td>Konfiguracja bloczka wyświetlanego w schemacie</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>form</td>
+<td>Konfiguracja formularza bloczka</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="definicja-bloczka-node">
+<h2>Definicja bloczka - node<a class="headerlink" href="#definicja-bloczka-node" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="29%" />
+<col width="9%" />
+<col width="52%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>icon</td>
+<td>Ikona wyświetlana na bloczku</td>
+<td>NIE</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>tab</td>
+<td>Kategoria bloczka</td>
+<td>TAK</td>
+<td>source - trigger, analitics - filtry, executable - akcje</td>
+</tr>
+<tr class="row-even"><td>endpoints</td>
+<td>Lista wejść i wyjść bloczka</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="lista-wejsc-i-wyjsc-endpoints">
+<h3>Lista wejść i wyjść - endpoints<a class="headerlink" href="#lista-wejsc-i-wyjsc-endpoints" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+</div>
+</div>
+<div class="section" id="definicja-formularza-form">
+<h2>Definicja formularza - form<a class="headerlink" href="#definicja-formularza-form" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="section" id="lista-pol-fields">
+<h3>Lista pól - fields<a class="headerlink" href="#lista-pol-fields" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="section" id="pole-tekstowe-text-url-email">
+<h4>Pole tekstowe - text, url, email<a class="headerlink" href="#pole-tekstowe-text-url-email" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Podstawowe pole tekstowe. Ustawiając typ url lub email, nastąpi wymuszenie poprawności wpisanej wartość dla odpowiedniego typu.</p>
+<img alt="_images/text.png" src="_images/text.png" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="33%" />
+<col width="11%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>Unikalny identyfikator pola</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>label</td>
+<td>Etykieta pola</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+<tr class="row-even"><td>placeholder</td>
+<td>Teks pomocniczy</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+<tr class="row-odd"><td>required</td>
+<td>Wymagalność pola</td>
+<td>NIE</td>
+<td>true/false</td>
+</tr>
+<tr class="row-even"><td>maxlength</td>
+<td>Maksymalna liczba znaków</td>
+<td>NIE</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|pole_tekstowe%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;placeholder&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|podpowiedz_pola%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;maxlength&quot;</span><span class="p">:</span> <span class="mi">30</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pole-numeryczne-number">
+<h4>Pole numeryczne - number<a class="headerlink" href="#pole-numeryczne-number" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Pole edycyjne przyjmujące tylko liczby.</p>
+<img alt="_images/number.png" src="_images/number.png" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="48%" />
+<col width="9%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>Unikalny identyfikator pola</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>label</td>
+<td>Etykieta pola</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+<tr class="row-even"><td>placeholder</td>
+<td>Teks pomocniczy</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+<tr class="row-odd"><td>required</td>
+<td>Wymagalność pola</td>
+<td>NIE</td>
+<td>true/false</td>
+</tr>
+<tr class="row-even"><td>readonly</td>
+<td>Pole tylko do odczytu</td>
+<td>NIE</td>
+<td>true/false</td>
+</tr>
+<tr class="row-odd"><td>min</td>
+<td>Minimalna wartość, jaką może przyjąć pole</td>
+<td>NIE</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>max</td>
+<td>Maksymalna wartość, jaką może przyjąć pole</td>
+<td>NIE</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>step</td>
+<td>Określa, o jaki zakres może zmienić się wartość pola</td>
+<td>NIE</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|pole_tekstowe%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;placeholder&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|podpowiedz_pola%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;min&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nt">&quot;max&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+  <span class="nt">&quot;step&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="obszar-tekstowy-textarea">
+<h4>Obszar tekstowy - textarea<a class="headerlink" href="#obszar-tekstowy-textarea" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Wieloliniowe pole tekstowe.</p>
+<img alt="_images/textarea.png" src="_images/textarea.png" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="33%" />
+<col width="11%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>Unikalny identyfikator pola</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>label</td>
+<td>Etykieta pola</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+<tr class="row-even"><td>placeholder</td>
+<td>Teks pomocniczy</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+<tr class="row-odd"><td>required</td>
+<td>Wymagalność pola</td>
+<td>NIE</td>
+<td>true/false</td>
+</tr>
+<tr class="row-even"><td>rows</td>
+<td>Maksymalna liczba wierszy</td>
+<td>NIE</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;textarea&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|obszar_tekstowy%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;placeholder&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|podpowiedz_pola%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;rows&quot;</span><span class="p">:</span> <span class="mi">5</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rozwijana-lista-select">
+<h4>Rozwijana lista - select<a class="headerlink" href="#rozwijana-lista-select" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<img alt="_images/select.png" src="_images/select.png" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="54%" />
+<col width="8%" />
+<col width="29%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>Unikalny identyfikator pola</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>label</td>
+<td>Etykieta pola</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+<tr class="row-even"><td>required</td>
+<td>Wymagalność pola</td>
+<td>NIE</td>
+<td>true/false</td>
+</tr>
+<tr class="row-odd"><td>reload</td>
+<td>Określenie czy po zmianie wartości formularz ma się przeładować</td>
+<td>NIE</td>
+<td>true/false</td>
+</tr>
+<tr class="row-even"><td>values</td>
+<td>Opcje do wyboru w polu</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>default</td>
+<td>Domyślnie wybrana opcja</td>
+<td>NIE</td>
+<td>Identyfikator opcji</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;select&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|rozwijana_lista%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;option2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja1%&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option2&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja2%&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option3&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja3%&quot;</span>
+      <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="przycisk-radio-radio">
+<h4>Przycisk radio - radio<a class="headerlink" href="#przycisk-radio-radio" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Grupa przycisków radio.</p>
+<img alt="_images/radio.png" src="_images/radio.png" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="35%" />
+<col width="12%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>Unikalny identyfikator pola</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>label</td>
+<td>Etykieta pola</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+<tr class="row-even"><td>required</td>
+<td>Wymagalność pola</td>
+<td>NIE</td>
+<td>true/false</td>
+</tr>
+<tr class="row-odd"><td>values</td>
+<td>Opcje do wyboru w polu</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>default</td>
+<td>Domyślnie wybrana opcja</td>
+<td>NIE</td>
+<td>Identyfikator opcji</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;radio&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|przycisk_radio%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja1%&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option2&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja2%&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option3&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja3%&quot;</span>
+      <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="przycisk-wyboru-checkbox">
+<h4>Przycisk wyboru - checkbox<a class="headerlink" href="#przycisk-wyboru-checkbox" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Grupa przycisków wyboru.</p>
+<img alt="_images/checkbox.png" src="_images/checkbox.png" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="54%" />
+<col width="8%" />
+<col width="29%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>Unikalny identyfikator pola</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>label</td>
+<td>Etykieta pola</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+<tr class="row-even"><td>required</td>
+<td>Wymagalność pola</td>
+<td>NIE</td>
+<td>true/false</td>
+</tr>
+<tr class="row-odd"><td>reload</td>
+<td>Określenie czy po zmianie wartości formularz ma się przeładować</td>
+<td>NIE</td>
+<td>true/false</td>
+</tr>
+<tr class="row-even"><td>values</td>
+<td>Opcje do wyboru w polu</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;checkbox&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|przycisk_wyboru%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja1%&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option2&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja2%&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;option3&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|opcja3%&quot;</span>
+      <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="wybor-daty-date">
+<h4>Wybór daty - date<a class="headerlink" href="#wybor-daty-date" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Pole wyboru daty i godziny.</p>
+<img alt="_images/date.png" src="_images/date.png" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="25%" />
+<col width="7%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>Unikalny identyfikator pola</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>label</td>
+<td>Etykieta pola</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+<tr class="row-even"><td>placeholder</td>
+<td>Tekst pomocniczy</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+<tr class="row-odd"><td>required</td>
+<td>Wymagalność pola</td>
+<td>NIE</td>
+<td>true/false</td>
+</tr>
+<tr class="row-even"><td>format</td>
+<td>Format daty/godziny do wpisania</td>
+<td>TAK</td>
+<td><ul class="first last simple">
+<li>d(dzień bez zero), dd(dzień z zero) np.: 5, 05</li>
+<li>D(krótki dzień tygodnia), DD(pełen dzień tygodnia) np.: Pon, Poniedziałek</li>
+<li>m(miesiąc bez zero),  mm(miesiąc z zero) np.: 7, 07</li>
+<li>M(Krótka nazwa miesiąca), MM(Pełna nazwa miesiąca) np.: Mar, Marzec</li>
+<li>yy(2 cyfrowy rok), yyyy(4 cyfrowy rok) np.: 12, 2012</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>min_view</td>
+<td>Minimalny widok do wybory</td>
+<td>NIE</td>
+<td><ul class="first last simple">
+<li>0, days, month - Widok wyboru dnia miesiąca</li>
+<li>1, months, year - Widok wyboru miesiąca</li>
+<li>2, years, decade - Widok wyboru roku(widok dekady)</li>
+<li>3, decades, century - Widok wyboru dekady(widok stulecia)</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>max_view</td>
+<td>Maksymalny widok do wyboru</td>
+<td>NIE</td>
+<td>j.w.</td>
+</tr>
+<tr class="row-odd"><td>min_date</td>
+<td>Minimalna możliwa data do wyboru</td>
+<td>NIE</td>
+<td>„now” dla obecnej daty i godziny</td>
+</tr>
+<tr class="row-even"><td>output_format</td>
+<td>Format wynikowy</td>
+<td>NIE</td>
+<td>Domyślnie X, Opcję zgodne z <a class="reference external" href="https://momentjs.com/docs/#/displaying/">Moment</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|data%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;placeholder&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|podaj_date_i_godzine%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|data%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;DD-MM-YYYY HH:mm&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;min_date&quot;</span><span class="p">:</span> <span class="s2">&quot;now&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;max_view&quot;</span><span class="p">:</span> <span class="s2">&quot;year&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="wybor-dnia-tygodnia-week-picker">
+<h4>Wybór dnia tygodnia - week-picker<a class="headerlink" href="#wybor-dnia-tygodnia-week-picker" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Pole wyboru dnia tygodnia.</p>
+<img alt="_images/week-picker.png" src="_images/week-picker.png" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="35%" />
+<col width="12%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>Unikalny identyfikator pola</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>label</td>
+<td>Etykieta pola</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+<tr class="row-even"><td>required</td>
+<td>Wymagalność pola</td>
+<td>NIE</td>
+<td>true/false</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;week-picker&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|dzien_tygodnia%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="grupy-pol-array">
+<h4>Grupy pól - array<a class="headerlink" href="#grupy-pol-array" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<img alt="_images/array.png" src="_images/array.png" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="21%" />
+<col width="6%" />
+<col width="65%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>Unikalny identyfikator pola</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>label</td>
+<td>Etykieta pola</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+<tr class="row-even"><td>max</td>
+<td>Maksymalna liczba grup</td>
+<td>TAK</td>
+<td><ul class="first last simple">
+<li>rule - Maksymalna liczba grup</li>
+<li>info - Informacja która się wyświetla po osiągnięciu maksimum. Możliwe tłumaczenia (%TRANSLATE%)</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>min</td>
+<td>Minimalna liczba grup</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>fields</td>
+<td>Lista pól w grupie</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>addButton</td>
+<td>Opcje przycisku dodawania grupy</td>
+<td>TAK</td>
+<td><ul class="first last simple">
+<li>show - Czy przycisk ma być wyświetlony</li>
+<li>disabled - Czy przycisk ma być wyłączony</li>
+<li>label - Etykieta przycisku. Możliwe tłumaczenia (%TRANSLATE%)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Właściwość etykiety pola(<strong>label</strong>) dla pól w grupie przyjmuję postać tablicy obiektów o następującej postaci:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="20%" />
+<col width="10%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>index</td>
+<td>Indeks grupy</td>
+<td>TAK</td>
+<td>Numerowane od 0. Należy wstawić false dla pozostałych indeksów</td>
+</tr>
+<tr class="row-odd"><td>text</td>
+<td>Tresć etykiety pola</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|grupa%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;min&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nt">&quot;max&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;rule&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="nt">&quot;info&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|osiagnales_juz_limit_5_adresow_url%&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;init&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;addButton&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;show&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;disabled&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|dodaj_strone%&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param2&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|pierwsze_pole%&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nt">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|pole_tekstowe%&quot;</span>
+        <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="nt">&quot;placeholder&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|podpowiedz_pola%&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;maxlength&quot;</span><span class="p">:</span> <span class="mi">30</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tekst-statyczny-paragraph">
+<h4>Tekst statyczny - paragraph<a class="headerlink" href="#tekst-statyczny-paragraph" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="35%" />
+<col width="12%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>Unikalny identyfikator pola</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>content</td>
+<td>Treść</td>
+<td>TAK</td>
+<td>Możliwe tłumaczenia (%TRANSLATE%)</td>
+</tr>
+<tr class="row-even"><td>style</td>
+<td>Styl elementu</td>
+<td>NIE</td>
+<td>Styl jako obiekt</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;param1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;paragraph&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;%TRANSLATE|tresc%&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;style&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;margin-top&quot;</span><span class="p">:</span> <span class="s2">&quot;24px&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -169,6 +994,13 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="module.html" class="btn btn-neutral float-left" title="Moduły" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -16,6 +16,7 @@ Wstęp
    preprocesor
    system
    module
+   functionality
 
 
 Wejściowym plikiem dla zdefiniowanej konfiguracji **MUSI** być plik *system.json*, który określa system z którym jest definiowana konfiguracja.
