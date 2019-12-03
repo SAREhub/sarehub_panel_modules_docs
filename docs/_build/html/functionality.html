@@ -99,7 +99,11 @@
 <li class="toctree-l1"><a class="reference internal" href="module.html">Moduły</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Funkcjonalność</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#definicja-bloczka-node">Definicja bloczka - node</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#lista-wejsc-i-wyjsc-endpoints">Lista wejść i wyjść - endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lista-wejsc-i-wyjsc-endpoints">Lista wejść i wyjść - endpoints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#typy-wejsc">Typy wejść</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dodatkowe-opcje">Dodatkowe opcje</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#definicja-formularza-form">Definicja formularza - form</a><ul>
@@ -268,10 +272,163 @@ Funkcjonalność stanowi najbardziej podstawą cześć modułu systemu i składa
 </table>
 <div class="section" id="lista-wejsc-i-wyjsc-endpoints">
 <h3>Lista wejść i wyjść - endpoints<a class="headerlink" href="#lista-wejsc-i-wyjsc-endpoints" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Definicja wejść i wyjść bloczka funkcjonalności.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="47%" />
+<col width="20%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>source</td>
+<td>Lista wyjść z bloczka</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>target</td>
+<td>Lista wejść do bloczka</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Konfiguracja wejścia/wyjścia składa się z następujących parametrów:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="54%" />
+<col width="17%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>typ</td>
+<td>Typ wejścia/wyjścia</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>params</td>
+<td>Obiekt dodatkowych opcji WE/WY</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="typy-wejsc">
+<h4>Typy wejść<a class="headerlink" href="#typy-wejsc" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<ul class="simple">
+<li>universal</li>
+</ul>
+<img alt="_images/target_universal.png" src="_images/target_universal.png" />
+<p>Podstawowy typ wejścia używany w wszystkich bloczkach</p>
+<p>Typy wyjść</p>
+<ul class="simple">
+<li>universal</li>
+</ul>
+<img alt="_images/source_universal.png" src="_images/source_universal.png" />
+<p>Podstawowy typ wejścia, używany gdy potrzeba tylko jednego wyjścia z bloczka.</p>
+<ul class="simple">
+<li>plus</li>
+</ul>
+<img alt="_images/source_plus.png" src="_images/source_plus.png" />
+<p>Typ wyjścia dla spełnienia warunku. Używany głównie w filtrach.</p>
+<ul class="simple">
+<li>minus</li>
+</ul>
+<img alt="_images/source_minus.png" src="_images/source_minus.png" />
+<p>Typ wyjścia dla niespełnienia warunku. Używany głównie w filtrach.</p>
+</div>
+<div class="section" id="dodatkowe-opcje">
+<h4>Dodatkowe opcje<a class="headerlink" href="#dodatkowe-opcje" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Każde WE/WY bloczka może posiadać następujące dodatkowe opcję</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="27%" />
+<col width="10%" />
+<col width="49%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>maxConnections</td>
+<td>Maksymalna liczba połączeń</td>
+<td>NIE</td>
+<td>Domyślnie 1. Aby wyłączyć limit należy wstawić -1</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>&quot;endpoints&quot;: {
+  &quot;source&quot;: [
+    {
+      &quot;type&quot;: &quot;universal&quot;,
+      &quot;params&quot;: {
+      &quot;maxConnections&quot;: -1
+      }
+    }
+  ],
+  &quot;target&quot;: [
+    {
+      &quot;type&quot;: &quot;universal&quot;,
+      &quot;params&quot;: {}
+    }
+  ]
+}
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="definicja-formularza-form">
 <h2>Definicja formularza - form<a class="headerlink" href="#definicja-formularza-form" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Definicja formularza konfiguracji funkcjonalności.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="59%" />
+<col width="14%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>fields</td>
+<td>Lista pól formularza</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>validation</td>
+<td>Konfiguracja walidacji ustawień bloczka</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
 <div class="section" id="lista-pol-fields">
 <h3>Lista pól - fields<a class="headerlink" href="#lista-pol-fields" title="Stały odnośnik do tego nagłówka">¶</a></h3>
 <div class="section" id="pole-tekstowe-text-url-email">
@@ -1112,15 +1269,53 @@ należy użyć właściwości <strong>show_if</strong>, która jest tablicą ide
 </div>
 <div class="section" id="walidacja-pol-fields">
 <h3>Walidacja pól - fields<a class="headerlink" href="#walidacja-pol-fields" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<p>Przed zapisaniem schematu kampanii każdy bloczek jest sprawdzany pod kątem poprawności uzupełnienia jego konfiguracji.
-Aby zdefiniować konfigurację należy przygotować model walidacji zgodny z <a class="reference external" href="https://json-schema.org/draft-07/json-schema-release-notes.html">JSON Schema draft-07</a>.</p>
-<p>Konfiguracja bloczka zapisywana jest w obiekcie <strong>settings</strong> w którym kluczem jest identyfikator pola a wartościa kest wartość danego pola.</p>
+<p>Konfiguracja bloczka zapisywana jest w obiekcie <strong>settings</strong> w którym kluczem jest identyfikator pola a wartościa jest wartość uzupełniona danego pola.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
   <span class="nt">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;param1&quot;</span><span class="p">:</span> <span class="s2">&quot;wartosc pola&quot;</span>
+    <span class="s2">&quot;param2&quot;</span><span class="p">:</span> <span class="mi">2</span>
   <span class="p">},</span>
-  <span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Przed zapisaniem schematu kampanii, każdy bloczek jest sprawdzany pod kątem poprawności uzupełnienia jego konfiguracji.</p>
+<p>Aby zdefiniować konfigurację walidacji należy przygotować model walidacji zgodny z <a class="reference external" href="https://json-schema.org/draft-07/json-schema-release-notes.html">JSON Schema draft-07</a>.
+W modelu walidacji należy uwzględnić cały obiekt settings.</p>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+  &quot;settings&quot;: {
+    &quot;param1&quot;: &quot;wartosc pola&quot;
+    &quot;param2: 5
+  },
+}
+</pre></div>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;validation&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;model&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;settings&quot;</span>
+      <span class="p">],</span>
+      <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;param1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;param2&quot;</span>
+          <span class="p">],</span>
+          <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;param1&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;param2&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
 <span class="p">}</span>
 </pre></div>
 </div>

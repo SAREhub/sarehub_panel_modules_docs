@@ -37,9 +37,100 @@ Definicja bloczka - node
 Lista wejść i wyjść - endpoints
 ===============================
 
+Definicja wejść i wyjść bloczka funkcjonalności.
+
++----------+------------------------+----------+-------+
+| Parametr |          Opis          | Wymagane | Uwagi |
++==========+========================+==========+=======+
+| source   | Lista wyjść z bloczka  | TAK      |       |
++----------+------------------------+----------+-------+
+| target   | Lista wejść do bloczka | TAK      |       |
++----------+------------------------+----------+-------+
+
+Konfiguracja wejścia/wyjścia składa się z następujących parametrów:
+
++----------+--------------------------------+----------+-------+
+| Parametr |              Opis              | Wymagane | Uwagi |
++==========+================================+==========+=======+
+| typ      | Typ wejścia/wyjścia            | TAK      |       |
++----------+--------------------------------+----------+-------+
+| params   | Obiekt dodatkowych opcji WE/WY | TAK      |       |
++----------+--------------------------------+----------+-------+
+
+Typy wejść
+----------
+
+* universal
+
+.. image:: /endpoints/target_universal.png
+
+Podstawowy typ wejścia używany w wszystkich bloczkach
+
+Typy wyjść
+
+* universal
+
+.. image:: /endpoints/source_universal.png
+
+Podstawowy typ wejścia, używany gdy potrzeba tylko jednego wyjścia z bloczka.
+
+* plus
+
+.. image:: /endpoints/source_plus.png
+
+Typ wyjścia dla spełnienia warunku. Używany głównie w filtrach.
+
+* minus
+
+.. image:: /endpoints/source_minus.png
+
+Typ wyjścia dla niespełnienia warunku. Używany głównie w filtrach.
+
+Dodatkowe opcje
+---------------
+
+Każde WE/WY bloczka może posiadać następujące dodatkowe opcję
+
++----------------+----------------------------+----------+---------------------------------------------------+
+|    Parametr    |            Opis            | Wymagane |                       Uwagi                       |
++================+============================+==========+===================================================+
+| maxConnections | Maksymalna liczba połączeń | NIE      | Domyślnie 1. Aby wyłączyć limit należy wstawić -1 |
++----------------+----------------------------+----------+---------------------------------------------------+
+
+
+Przykład:
+
+.. code-block:: json
+
+  "endpoints": {
+    "source": [
+      {
+        "type": "universal",
+        "params": {
+        "maxConnections": -1
+        }
+      }
+    ],
+    "target": [
+      {
+        "type": "universal",
+        "params": {}
+      }
+    ]
+  }
 
 Definicja formularza - form
 ***************************
+
+Definicja formularza konfiguracji funkcjonalności.
+
++------------+-----------------------------------------+----------+-------+
+|  Parametr  |                  Opis                   | Wymagane | Uwagi |
++============+=========================================+==========+=======+
+| fields     | Lista pól formularza                    | TAK      |       |
++------------+-----------------------------------------+----------+-------+
+| validation | Konfiguracja walidacji ustawień bloczka | TAK      |       |
++------------+-----------------------------------------+----------+-------+
 
 
 Lista pól - fields
@@ -610,17 +701,59 @@ Przyklad:
 Walidacja pól - fields
 ======================
 
-Przed zapisaniem schematu kampanii każdy bloczek jest sprawdzany pod kątem poprawności uzupełnienia jego konfiguracji.
-Aby zdefiniować konfigurację należy przygotować model walidacji zgodny z `JSON Schema draft-07 <https://json-schema.org/draft-07/json-schema-release-notes.html>`_. 
-
-Konfiguracja bloczka zapisywana jest w obiekcie **settings** w którym kluczem jest identyfikator pola a wartościa kest wartość danego pola.
+Konfiguracja bloczka zapisywana jest w obiekcie **settings** w którym kluczem jest identyfikator pola a wartościa jest wartość uzupełniona danego pola.
 
 .. code-block:: json
 
     {
-      "...": "...",
       "settings": {
         "param1": "wartosc pola"
+        "param2": 2
       },
-      "...": "..."
+    }
+
+Przed zapisaniem schematu kampanii, każdy bloczek jest sprawdzany pod kątem poprawności uzupełnienia jego konfiguracji.
+
+Aby zdefiniować konfigurację walidacji należy przygotować model walidacji zgodny z `JSON Schema draft-07 <https://json-schema.org/draft-07/json-schema-release-notes.html>`_. 
+W modelu walidacji należy uwzględnić cały obiekt settings. 
+
+Przykład:
+
+.. code-block:: json
+
+    {
+      "settings": {
+        "param1": "wartosc pola"
+        "param2: 5
+      },
+    }
+
+.. code-block:: json
+
+    {
+      "validation": {
+        "model": {
+          "type": "object",
+          "required": [
+            "settings"
+          ],
+          "properties": {
+            "settings": {
+              "type": "object",
+              "required": [
+                "param1",
+                "param2"
+              ],
+              "properties": {
+                "param1": {
+                  "type": "string"
+                },
+                "param2": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      },
     }
