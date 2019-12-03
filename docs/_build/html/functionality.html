@@ -378,24 +378,26 @@ Funkcjonalność stanowi najbardziej podstawą cześć modułu systemu i składa
 </tbody>
 </table>
 <p>Przykład:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>&quot;endpoints&quot;: {
-  &quot;source&quot;: [
-    {
-      &quot;type&quot;: &quot;universal&quot;,
-      &quot;params&quot;: {
-      &quot;maxConnections&quot;: -1
-      }
-    }
-  ],
-  &quot;target&quot;: [
-    {
-      &quot;type&quot;: &quot;universal&quot;,
-      &quot;params&quot;: {}
-    }
-  ]
-}
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="nt">&quot;endpoints&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;universal&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;maxConnections&quot;</span><span class="p">:</span> <span class="mi">-1</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;universal&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;params&quot;</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
+<p>}</p>
 </div>
 </div>
 </div>
@@ -1272,8 +1274,8 @@ należy użyć właściwości <strong>show_if</strong>, która jest tablicą ide
 <p>Konfiguracja bloczka zapisywana jest w obiekcie <strong>settings</strong> w którym kluczem jest identyfikator pola a wartościa jest wartość uzupełniona danego pola.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;param1&quot;</span><span class="p">:</span> <span class="s2">&quot;wartosc pola&quot;</span>
-    <span class="s2">&quot;param2&quot;</span><span class="p">:</span> <span class="mi">2</span>
+    <span class="nt">&quot;param1&quot;</span><span class="p">:</span> <span class="s2">&quot;wartosc pola&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;param2&quot;</span><span class="p">:</span> <span class="mi">2</span>
   <span class="p">},</span>
 <span class="p">}</span>
 </pre></div>
@@ -1282,12 +1284,12 @@ należy użyć właściwości <strong>show_if</strong>, która jest tablicą ide
 <p>Aby zdefiniować konfigurację walidacji należy przygotować model walidacji zgodny z <a class="reference external" href="https://json-schema.org/draft-07/json-schema-release-notes.html">JSON Schema draft-07</a>.
 W modelu walidacji należy uwzględnić cały obiekt settings.</p>
 <p>Przykład:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
-  &quot;settings&quot;: {
-    &quot;param1&quot;: &quot;wartosc pola&quot;
-    &quot;param2: 5
-  },
-}
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;param1&quot;</span><span class="p">:</span> <span class="s2">&quot;wartosc pola&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;param2&quot;</span><span class="p">:</span> <span class="mi">5</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>

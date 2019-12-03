@@ -102,12 +102,13 @@ Przykład:
 
 .. code-block:: json
 
+  {
   "endpoints": {
     "source": [
       {
         "type": "universal",
         "params": {
-        "maxConnections": -1
+          "maxConnections": -1
         }
       }
     ],
@@ -118,6 +119,7 @@ Przykład:
       }
     ]
   }
+}
 
 Definicja formularza - form
 ***************************
@@ -707,7 +709,7 @@ Konfiguracja bloczka zapisywana jest w obiekcie **settings** w którym kluczem j
 
     {
       "settings": {
-        "param1": "wartosc pola"
+        "param1": "wartosc pola",
         "param2": 2
       },
     }
@@ -723,9 +725,9 @@ Przykład:
 
     {
       "settings": {
-        "param1": "wartosc pola"
-        "param2: 5
-      },
+        "param1": "wartosc pola",
+        "param2": 5
+      }
     }
 
 .. code-block:: json
