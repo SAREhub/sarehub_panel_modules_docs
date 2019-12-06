@@ -39,7 +39,7 @@
   <link rel="stylesheet" href="_static/css/extra.css" type="text/css" />
     <link rel="index" title="Indeks" href="genindex.html" />
     <link rel="search" title="Szukaj" href="search.html" />
-    <link rel="next" title="Wstępne parsowanie pliku" href="preprocesor.html" /> 
+    <link rel="next" title="System" href="system.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,10 +94,10 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Wstęp</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="preprocesor.html">Wstępne parsowanie pliku</a></li>
 <li class="toctree-l1"><a class="reference internal" href="system.html">System</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module.html">Moduły</a></li>
 <li class="toctree-l1"><a class="reference internal" href="functionality.html">Funkcjonalność</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preprocesor.html">Wstępne parsowanie pliku</a></li>
 </ul>
 
             
@@ -168,24 +168,62 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="preprocesor.html">Wstępne parsowanie pliku</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="preprocesor.html#dyrektywy-parsowania">Dyrektywy parsowania</a></li>
+<li class="toctree-l1"><a class="reference internal" href="system.html">System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="system.html#autoryzacja-systemu-authorization">Autoryzacja systemu - authorization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="system.html#typy-autoryzacji-type">Typy autoryzacji - type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html#restrykcje-dla-integracji-restrictions">Restrykcje dla integracji - restrictions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="system.html">System</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="system.html#autoryzacja-systemu-authorization">Autoryzacja systemu - authorization</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module.html">Moduły</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="module.html#definicja-zmiennych-interface-config">Definicja zmiennych - interface_config</a></li>
-<li class="toctree-l2"><a class="reference internal" href="module.html#definicja-zdarzen-event">Definicja zdarzeń - event</a></li>
-<li class="toctree-l2"><a class="reference internal" href="module.html#zapis-modulu-save">Zapis modułu - save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module.html#definicja-zmiennych-interface-config">Definicja zmiennych - interface_config</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="module.html#definicja-zapytania-apivariable">Definicja zapytania - apiVariable</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="module.html#definicja-zdarzen-event">Definicja zdarzeń - event</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="module.html#dostepne-funkcje-nasluchujace">Dostępne funkcje nasłuchujące</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="module.html#zapis-modulu-save">Zapis modułu - save</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="module.html#wywolanie-api-api-call">Wywołanie API - api-call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module.html#zapis-zalezny-od-konfiguracji-multi">Zapis zależny od konfiguracji - multi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module.html#zapis-do-mongodb-mongo-api">Zapis do MongoDB - mongo-api</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="module.html#tlumaczenia-translation">Tłumaczenia - translation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="functionality.html">Funkcjonalność</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="functionality.html#definicja-bloczka-node">Definicja bloczka - node</a></li>
-<li class="toctree-l2"><a class="reference internal" href="functionality.html#definicja-formularza-form">Definicja formularza - form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functionality.html#definicja-bloczka-node">Definicja bloczka - node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="functionality.html#lista-wejsc-i-wyjsc-endpoints">Lista wejść i wyjść - endpoints</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="functionality.html#definicja-formularza-form">Definicja formularza - form</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="functionality.html#lista-pol-fields">Lista pól - fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functionality.html#pola-zalezne">Pola zależne</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functionality.html#walidacja-pol-fields">Walidacja pól - fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="preprocesor.html">Wstępne parsowanie pliku</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preprocesor.html#dyrektywy-parsowania">Dyrektywy parsowania</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="preprocesor.html#dyrektywy-warunkowe-anyof-i-oneof">Dyrektywy warunkowe - &#64;anyOf i &#64;oneOf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="preprocesor.html#petla-repeat">Pętla - &#64;repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="preprocesor.html#wyrazenia-expression">Wyrażenia - expression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="preprocesor.html#formatowanie-formatter">Formatowanie - &#64;formatter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="preprocesor.html#przetwarzanie-szablonu-twig-twigrender">Przetwarzanie szablonu TWIG - &#64;twigRender</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="preprocesor.html#kontekst-parsowania">Kontekst parsowania</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="preprocesor.html#funkcje-pomocnicze-utils">Funkcje pomocnicze - utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="preprocesor.html#parametry-konta-session">Parametry konta - session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="preprocesor.html#tresci-contentrepository">Treści - contentRepository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="preprocesor.html#mediahelper">mediaHelper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="preprocesor.html#ustawienia-bloczka">Ustawienia bloczka</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -220,7 +258,7 @@ Odnośnik do zewnętrznego pliku należy zdefiniować pod właściwością <em>&
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="preprocesor.html" class="btn btn-neutral float-right" title="Wstępne parsowanie pliku" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="system.html" class="btn btn-neutral float-right" title="System" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

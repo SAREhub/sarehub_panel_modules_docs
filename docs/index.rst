@@ -11,12 +11,12 @@ Wstęp
    self
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
-   preprocesor
    system
    module
    functionality
+   preprocesor
 
 
 Wejściowym plikiem dla zdefiniowanej konfiguracji **MUSI** być plik *system.json*, który określa system z którym jest definiowana konfiguracja.

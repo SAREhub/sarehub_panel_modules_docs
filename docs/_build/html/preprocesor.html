@@ -39,8 +39,7 @@
   <link rel="stylesheet" href="_static/css/extra.css" type="text/css" />
     <link rel="index" title="Indeks" href="genindex.html" />
     <link rel="search" title="Szukaj" href="search.html" />
-    <link rel="next" title="System" href="system.html" />
-    <link rel="prev" title="Wstęp" href="index.html" /> 
+    <link rel="prev" title="Funkcjonalność" href="functionality.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,22 +94,52 @@
 <li class="toctree-l1"><a class="reference internal" href="index.html">Wstęp</a></li>
 </ul>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="system.html">System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">Moduły</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functionality.html">Funkcjonalność</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Wstępne parsowanie pliku</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dyrektywy-parsowania">Dyrektywy parsowania</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#dyrektywy-warunkowe">Dyrektywy warunkowe</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dyrektywy-warunkowe-anyof-i-oneof">Dyrektywy warunkowe - &#64;anyOf i &#64;oneOf</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#anyof">&#64;anyOf</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#oneof">&#64;oneOf</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#expresion">expresion</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#formatter">&#64;formatter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#render">&#64;Render</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#petla-repeat">Pętla - &#64;repeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wyrazenia-expression">Wyrażenia - expression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#formatowanie-formatter">Formatowanie - &#64;formatter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#string">string</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#przetwarzanie-szablonu-twig-twigrender">Przetwarzanie szablonu TWIG - &#64;twigRender</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#kontekst-parsowania">Kontekst parsowania</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#funkcje-pomocnicze-utils">Funkcje pomocnicze - utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#isempty">isEmpty</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#implode">implode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#round">round</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#escape">escape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#createdatetime">createDateTime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#includes">includes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#replace">replace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arrayfilter">arrayFilter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arraycolumn">arrayColumn</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#parametry-konta-session">Parametry konta - session</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gethubid">getHubId()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tresci-contentrepository">Treści - contentRepository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mediahelper">mediaHelper</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generatepublicurl">generatePublicUrl</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ustawienia-bloczka">Ustawienia bloczka</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="system.html">System</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module.html">Moduły</a></li>
 </ul>
 
             
@@ -177,83 +206,77 @@
             
   <div class="section" id="wstepne-parsowanie-pliku">
 <h1>Wstępne parsowanie pliku<a class="headerlink" href="#wstepne-parsowanie-pliku" title="Stały odnośnik do tego nagłówka">¶</a></h1>
-<p>Konfiguracja przed właściwym użyciem przez silnik jest wstępnie parsowany.
+<p>Część konfiguracji przed właściwym użyciem przez silnik jest wstępnie parsowana.
 Ten proces może być kontrolowany przy użyciu dyrektyw preprocesora.</p>
 <div class="section" id="dyrektywy-parsowania">
 <h2>Dyrektywy parsowania<a class="headerlink" href="#dyrektywy-parsowania" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<div class="section" id="dyrektywy-warunkowe">
-<h3>Dyrektywy warunkowe<a class="headerlink" href="#dyrektywy-warunkowe" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<p>Dyrektywy warunkowe <strong>MUSZĄ</strong> być zdefiniowane wg. poniższego schematu:</p>
+<div class="section" id="dyrektywy-warunkowe-anyof-i-oneof">
+<h3>Dyrektywy warunkowe - &#64;anyOf i &#64;oneOf<a class="headerlink" href="#dyrektywy-warunkowe-anyof-i-oneof" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Dopuszczalne sa następujące formaty dyrektywy:</p>
+<ul class="simple">
+<li>Pełna</li>
+</ul>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;conditionsDirectives&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&quot;if&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;oneOf&quot;</span><span class="p">:</span> <span class="p">[</span>
-                  <span class="p">{</span>
-                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
-                    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;warunek do spełnienia&quot;</span>
-                  <span class="p">},</span>
-                  <span class="p">{</span>
-                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
-                    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;tablica składowych warunku do spełnienia&quot;</span><span class="p">,</span>
-                    <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
-                      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-                      <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-                        <span class="nt">&quot;condition&quot;</span><span class="p">:</span> <span class="p">{</span>
-                          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
-                          <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;warunek do spełnienia&quot;</span>
-                        <span class="p">},</span>
-                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="p">{</span>
-                          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
-                          <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;typ łączenia warunku&quot;</span><span class="p">,</span>
-                          <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
-                            <span class="s2">&quot;AND&quot;</span><span class="p">,</span>
-                            <span class="s2">&quot;OR&quot;</span>
-                          <span class="p">]</span>
-                        <span class="p">}</span>
-                      <span class="p">}</span>
-                    <span class="p">}</span>
-                  <span class="p">}</span>
-                <span class="p">]</span>
-              <span class="p">},</span>
-              <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;zawartość ktora ma być użyta jeśli zostanie spełnione wyrażenie&quot;</span>
-              <span class="p">}</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
+  <span class="nt">&quot;@anyOf|@oneOf&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;if&quot;</span><span class="p">:</span> <span class="s2">&quot;reguła&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;zawartość do wstawienia przy spełnieniu warunku&quot;</span>
         <span class="p">}</span>
-      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;oneOf&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;@anyOf&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/conditionsDirectives&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;@oneOf&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;#/definitions/conditionsDirectives&quot;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+<ul class="simple">
+<li>Skrócona definicja</li>
+</ul>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;@anyOf|@oneOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;if&quot;</span><span class="p">:</span> <span class="s2">&quot;reguła&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;zawartość do wstawienia przy spełnieniu warunku&quot;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>W skróconej wersji nie jest możliwe przekazanie dodatkowych opcji.</p>
 <div class="section" id="anyof">
 <h4>&#64;anyOf<a class="headerlink" href="#anyof" title="Stały odnośnik do tego nagłówka">¶</a></h4>
 <p>Dyrektywa pozwala na zdefiniowane listy konfiguracji które mają być wybrane jeśli zostaną spełnione określone warunki.</p>
+<p>Dodatkowe opcje:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="53%" />
+<col width="13%" />
+<col width="22%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>merge</td>
+<td>Opcja określa czy przy kilku spełnionych
+warunkach ich zawartość ma był połączona</td>
+<td>NIE</td>
+<td>Domyślnie false</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="oneof">
 <h4>&#64;oneOf<a class="headerlink" href="#oneof" title="Stały odnośnik do tego nagłówka">¶</a></h4>
 <p>Dyrektywa pozwala na wybranie wyłącznie jednego wariantu po spełnieniu warunku.
 Przy parsowaniu jeden warunek <strong>MUSI</strong> zostać spełniony, więc zalecane jest,
-aby ostatnii warunek był określony przez wyrażenie true. Jeśli warunek zostanie spełniony parsowanie zostanie zatrzymane.</p>
+aby ostatni warunek był określony przez wyrażenie true. Jeśli warunek zostanie spełniony parsowanie zostanie zatrzymane.</p>
 <p>Poniższa tabela przedstawia najważniejsze różnice miedzy dyrektywami &#64;oneOf i &#64;anyOf:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -280,76 +303,634 @@ po sprawdzeniu wszystkich warunków</td>
 </tr>
 </tbody>
 </table>
+<p>Jeśli reguła jest skomplikowana i składa sie z kilku warunków możliwy jest podział reguły na listę warunków:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;@anyOf|@oneOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;if&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;rule&quot;</span><span class="p">:</span> <span class="s2">&quot;reguła1&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;rule&quot;</span><span class="p">:</span> <span class="s2">&quot;reguła2&quot;</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;OR/AND&quot;</span>
+        <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;zawartość do wstawienia przy spełnieniu warunku&quot;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
 </div>
 </div>
-<div class="section" id="expresion">
-<h3>expresion<a class="headerlink" href="#expresion" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<p>Preprocesor pozwala na wstawienie wyniku wyrażenia lub zmiennych we wskazane miejsce.
-Wyrażenie <strong>MUSI</strong> być wstawione w postaci <em>{{wyrażenie}}</em>.
+</div>
+<div class="section" id="petla-repeat">
+<h3>Pętla - &#64;repeat<a class="headerlink" href="#petla-repeat" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Dyrektywa pozwala na cykliczne powielenie konfiguracji, przechodząc po kolekcji znajdującej się w kontekście silnika.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;@repeat&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;var&quot;</span><span class="p">:</span> <span class="s2">&quot;nazwa zmiennej pod którą biędzie dostępny obecny element&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;in&quot;</span><span class="p">:</span> <span class="s2">&quot;kolekcja po której następuje iteracja&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;zawartość do powielenia&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;@repeat&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;var&quot;</span><span class="p">:</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;in&quot;</span><span class="p">:</span> <span class="s2">&quot;testArray&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;{{i.id}}&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="wyrazenia-expression">
+<h3>Wyrażenia - expression<a class="headerlink" href="#wyrazenia-expression" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Dyrektywa pozwala na wstawienie wyniku wyrażenia lub zmiennych we wskazane miejsce.
+Wyrażenie <strong>MUSI</strong> być wstawione w postaci <strong>{{wyrażenie}}</strong>.
 W jednym polu może znajdować się wiele bloków wyrażeń.</p>
 <p>Przykład:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;exp1&quot;</span> <span class="p">:</span> <span class="s2">&quot;{{settings[0]}} {{settings[1]}}&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;exp2&quot;</span> <span class="p">:</span> <span class="s2">&quot;{{settings[0] * settings[1}}&quot;</span>
+    <span class="nt">&quot;exp2&quot;</span> <span class="p">:</span> <span class="s2">&quot;{{settings[0] * settings[1]}}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Jeśli wynikiem wyrażenia jest liczba lub typ logiczny i jest to jedyne wyrażenie w danym polu to wynik jest automatycznie przekonwertowany.</p>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;exp1&quot;</span> <span class="p">:</span> <span class="s2">&quot;{{1}}&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Wynikiem będzie:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;exp1&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="formatter">
-<h3>&#64;formatter<a class="headerlink" href="#formatter" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="section" id="formatowanie-formatter">
+<h3>Formatowanie - &#64;formatter<a class="headerlink" href="#formatowanie-formatter" title="Stały odnośnik do tego nagłówka">¶</a></h3>
 <p>Dyrektywa pozwala na przeformatowanie bloku konfiguracji z jednego typu na drugi.</p>
-<p>Definicja preprocesora <strong>MUSI</strong> być zdefiniowana wg schematu:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;@formatter&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;type formatu&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
-          <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;typ konwertera&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>Obecnie jedynym dostępnym typem jest <em>string</em> który zamienia obiekt lub tablicę do typu tekstowego.</p>
-<p>Typ <strong>MUSI</strong> być zdefiniowany wg schematu:</p>
+<div class="section" id="string">
+<h4>string<a class="headerlink" href="#string" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Konwersja do łańcucha znaków.
+Używane głównie przy dyrektywie <strong>&#64;anyOf</strong> do generowania tekstu zależnie od warunków.</p>
+<p>Opcje - config:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="52%" />
+<col width="18%" />
+<col width="13%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>concat</td>
+<td>Łącznik fragmentów łańcucha</td>
+<td>NIE</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;@formatter&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;type formatu&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;concat&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;opcjonalny łącznik&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
-      <span class="p">}</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;concat&quot;</span><span class="p">:</span> <span class="s2">&quot; and &quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;@anyOf&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;if&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;if&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;World&quot;</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Czego wynikiem będzie „Hello and World”.</p>
 </div>
-<div class="section" id="render">
-<h3>&#64;Render<a class="headerlink" href="#render" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<p>Dyrektywa pozwala na wstawienie wyniku parsowania zewnętrznego pliku.</p>
+</div>
+<div class="section" id="przetwarzanie-szablonu-twig-twigrender">
+<h3>Przetwarzanie szablonu TWIG - &#64;twigRender<a class="headerlink" href="#przetwarzanie-szablonu-twig-twigrender" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Dyrektywa pozwala na wstawienie wyniku parsowania zewnętrznego pliku <a class="reference external" href="https://twig.symfony.com/">Twig</a>. Kontekstem parsowania pliku jest kontekstem preparsera.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;@Render&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;typ parsera&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;twig&quot;</span><span class="p">],</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;względna ścieżka do pliku, relatywnie do system.json&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
+  <span class="nt">&quot;@twigRender&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;ścieżka do pliku relatywnie do system.json&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Opcje - options:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="41%" />
+<col width="6%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>wrap</td>
+<td>Pozwala na wstawienie tekstu przed i po wyniku parsowania twiga</td>
+<td>NIE</td>
+<td>Aby wstawić treść wygenerowana z szablonu twiga należy użyć <strong>{content}</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;@twigRender&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;twig/test.twig&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;wrap&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;!- {content} --&gt;&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="kontekst-parsowania">
+<h2>Kontekst parsowania<a class="headerlink" href="#kontekst-parsowania" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Kontekst jest zbiorem zmiennych oraz funkcji które można użyć w powyższych dyrektywach.
+Dostępność niektórych zmiennych zależy od parsowanego fragmentu konfiguracji.</p>
+<div class="section" id="funkcje-pomocnicze-utils">
+<h3>Funkcje pomocnicze - utils<a class="headerlink" href="#funkcje-pomocnicze-utils" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Funkcje dostępne są w każdym parsowanym fragmencie</p>
+<div class="section" id="isempty">
+<h4>isEmpty<a class="headerlink" href="#isempty" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Sprawdzenie czy zmienna posiada wartość. Odpowiednik <a class="reference external" href="https://www.php.net/manual/en/function.empty.php">empty</a> z języka PHP.</p>
+<p>Zwracana wartość: Boolean</p>
+<p>Parametry:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="47%" />
+<col width="20%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>data</td>
+<td>Zmienna do sprawdzenia</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;{{utils.isEmpty(data)}}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="implode">
+<h4>implode<a class="headerlink" href="#implode" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Łączenie elementów w łańcuch znaków. Odpowiednik <a class="reference external" href="https://www.php.net/manual/en/function.implode.php">implode</a> z języka PHP.</p>
+<p>Zwracana wartość: String</p>
+<p>Parametry:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="54%" />
+<col width="17%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>data</td>
+<td>Tablica elementów do złączenia</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>glue</td>
+<td>Łącznik elementów</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;{{utils.implode(&#39;, &#39;, data)}}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="round">
+<h4>round<a class="headerlink" href="#round" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Zaokrąglenie liczby zmiennoprzecinkowej. Odpowiednik <a class="reference external" href="https://www.php.net/manual/en/function.round.php">round</a> z języka PHP.</p>
+<p>Zwracana wartość: Float</p>
+<p>Parametry:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="51%" />
+<col width="14%" />
+<col width="19%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>val</td>
+<td>Liczba do Zaokrąglenia</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>precision</td>
+<td>Precyzja(liczba cyfr po przecinku)</td>
+<td>NIE</td>
+<td>Domyślnie 0</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;{{utils.round(price, 2)}}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="escape">
+<h4>escape<a class="headerlink" href="#escape" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Dekodowanie łańcucha znaków do postaci bezpiecznej do użycia w Twig</p>
+<p>Zwracana wartość: String</p>
+<p>Parametry:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="46%" />
+<col width="20%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>str</td>
+<td>Tekst do zdekodowania</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="createdatetime">
+<h4>createDateTime<a class="headerlink" href="#createdatetime" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Tworzenie obiektu <a class="reference external" href="https://www.php.net/manual/en/class.datetime.php">DateTime</a>.</p>
+<p>Zwracana wartość: <a class="reference external" href="https://www.php.net/manual/en/class.datetime.php">DateTime</a></p>
+<p>Parametry:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="48%" />
+<col width="9%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>time</td>
+<td>formuła dnia i godziny</td>
+<td>NIE</td>
+<td>Domyślnie „now”. Zgodnie z <a class="reference external" href="https://www.php.net/manual/en/datetime.formats.php">formatem</a></td>
+</tr>
+<tr class="row-odd"><td>timezone</td>
+<td>Formuła strefy czasowej lub przesunięcie(np. +0200)</td>
+<td>NIE</td>
+<td>Domyślnie null. Zgodnie z <a class="reference external" href="https://www.php.net/manual/en/timezones.php">strefami</a></td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;{{utils.createDateTime(&#39;2019-12-06 12:00:00&#39;).getTimeStamp()}}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="includes">
+<h4>includes<a class="headerlink" href="#includes" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Sprawdzenie czy jakiś tekst występuje w innym. Odpowiednik <a class="reference external" href="https://www.php.net/manual/en/function.strpos.php">strpos</a> z języka PHP.</p>
+<p>Zwracana wartość: Boolean</p>
+<p>Parametry:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="58%" />
+<col width="15%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>str</td>
+<td>Tekst w którym następuje wyszukiwanie</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>substring</td>
+<td>Tekst do wyszukania</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;{{utils.includes(&#39;Hello World&#39;, &#39;Hello&#39;)}}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="replace">
+<h4>replace<a class="headerlink" href="#replace" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Zamiana tekstu na inny. Odpowiednik <a class="reference external" href="https://www.php.net/manual/en/function.str-replace.php">str_replace</a> z języka PHP.</p>
+<p>Zwracana wartość: String</p>
+<p>Parametry:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="65%" />
+<col width="13%" />
+<col width="9%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>search</td>
+<td>Tekst lub tablica do wyszukania</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>replace</td>
+<td>Tekst lub tablica na które ma być dokonana zmiana</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>subject</td>
+<td>Tekst w którum następuje wyszukiwanie</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;{{utils.includes(&#39;World&#39;, &#39;Universe&#39;, &#39;Hello World&#39;)}}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="arrayfilter">
+<h4>arrayFilter<a class="headerlink" href="#arrayfilter" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Filtrowanie elementów po przekazanych parametrach</p>
+<p>Zwracana wartość: Array</p>
+<p>Parametry:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="64%" />
+<col width="13%" />
+<col width="9%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>input</td>
+<td>Tablica wejściowa</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>params</td>
+<td>Obiekt parametrów filtra lub JSON tego obiektu</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;{{utils.arrayFilter(data, &#39;{\&quot;param\&quot;: \&quot;val\&quot;}&#39;}}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="arraycolumn">
+<h4>arrayColumn<a class="headerlink" href="#arraycolumn" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Zwraca tablicę z wartościami z wskazanej kolumny. Odpowiednik <a class="reference external" href="https://www.php.net/manual/en/function.array-column.php">array_column</a> z PHP.</p>
+<p>Zwracana wartość: Array</p>
+<p>Parametry:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="58%" />
+<col width="16%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>input</td>
+<td>Tablica wejściowa</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>param</td>
+<td>Klucz/kolumna która ma być zwrócona</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;{{utils.arrayColumn(data, &#39;param&#39;)}}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="parametry-konta-session">
+<h3>Parametry konta - session<a class="headerlink" href="#parametry-konta-session" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="section" id="gethubid">
+<h4>getHubId()<a class="headerlink" href="#gethubid" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Pobranie identyfikatora konta</p>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;{{session.getHubId()}}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="tresci-contentrepository">
+<h3>Treści - contentRepository<a class="headerlink" href="#tresci-contentrepository" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Pobranie treści z systemu.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;{{contentRepository.getContent(&#39;typTreści&#39;, identyfikator)}}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Dostępne treści</p>
+<ul class="simple">
+<li>personalization - szablon personalizacji</li>
+<li>webPushTemplate - szablon powiadomienia push</li>
+<li>staticContent - treść statyczna</li>
+</ul>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;{{contentRepository.getContent(&#39;webPushTemplate&#39;, 1).getTitle()}}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mediahelper">
+<h3>mediaHelper<a class="headerlink" href="#mediahelper" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="section" id="generatepublicurl">
+<h4>generatePublicUrl<a class="headerlink" href="#generatepublicurl" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Pozwala na wygenerowanie publicznego url do określonego zasobu</p>
+<p>Parametry:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="44%" />
+<col width="14%" />
+<col width="29%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>hubId</td>
+<td>Identyfikator konta w systemie</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>media</td>
+<td>Obiekt zasobu</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>type</td>
+<td>Typ zasobu</td>
+<td>NIE</td>
+<td>Domyślnie reference</td>
+</tr>
+<tr class="row-odd"><td>absolute</td>
+<td>Czy ścieżka ma być pełna</td>
+<td>NIE</td>
+<td>Domyślnie: true</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;{{mediaHelper.generatePublicUrl(session.hubId, notification.icon}&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ustawienia-bloczka">
+<h3>Ustawienia bloczka<a class="headerlink" href="#ustawienia-bloczka" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Podczas zapisu bloczka (sekcja <span class="xref std std-doc">save</span>) w kontekscie zapisane są wszystkie uzupełnione wartości z formularza.
+Parametry dostępne są w obiekcie <strong>settings</strong>.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;param1&quot;</span><span class="p">:</span> <span class="s2">&quot;val1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;param2&quot;</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;{{settings[&#39;param1&#39;]}}&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -365,10 +946,8 @@ W jednym polu może znajdować się wiele bloków wyrażeń.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="system.html" class="btn btn-neutral float-right" title="System" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="index.html" class="btn btn-neutral float-left" title="Wstęp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="functionality.html" class="btn btn-neutral float-left" title="Funkcjonalność" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
