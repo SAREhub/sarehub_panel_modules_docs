@@ -93,7 +93,7 @@ Jeśli reguła jest skomplikowana i składa sie z kilku warunków możliwy jest 
               "rule": "reguła1"
             },
             {
-              "rule": "reguła2"
+              "rule": "reguła2",
               "type": "OR/AND"
             }
           ],
@@ -576,7 +576,7 @@ Przykład:
 Ustawienia bloczka
 ==================
 
-Podczas zapisu bloczka (sekcja :doc:`save </save>`) w kontekscie zapisane są wszystkie uzupełnione wartości z formularza. 
+Podczas zapisu bloczka (sekcja :doc:`save </module>`) w kontekscie zapisane są wszystkie uzupełnione wartości z formularza. 
 Parametry dostępne są w obiekcie **settings**.
 
 .. code-block:: json
@@ -593,4 +593,3 @@ Parametry dostępne są w obiekcie **settings**.
     {
       "test": "{{settings['param1']}}"
     }
-    

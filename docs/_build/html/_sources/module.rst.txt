@@ -358,7 +358,8 @@ Przykład:
         }
     }
 
-.. _save_ref:
+.. _save:
+
 Zapis modułu - save
 *******************
 
