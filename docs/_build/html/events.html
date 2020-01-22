@@ -38,7 +38,8 @@
   <link rel="stylesheet" href="https://media.readthedocs.org/css/readthedocs-doc-embed.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/extra.css" type="text/css" />
     <link rel="index" title="Indeks" href="genindex.html" />
-    <link rel="search" title="Szukaj" href="search.html" /> 
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="prev" title="Wstępne parsowanie pliku" href="preprocesor.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -92,11 +93,30 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Wstęp</a></li>
 </ul>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="system.html">System</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module.html">Moduły</a></li>
 <li class="toctree-l1"><a class="reference internal" href="functionality.html">Funkcjonalność</a></li>
 <li class="toctree-l1"><a class="reference internal" href="preprocesor.html">Wstępne parsowanie pliku</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Obsługa zdarzeń</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dostepne-zdarzenia">Dostępne zdarzenia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#zmiana-encji-systemowej-entity-changed">Zmiana encji systemowej - entity.changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pomyslne-zintegrowanie-systemu-integration-completed">Pomyślne zintegrowanie systemu - integration.completed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pomyslne-usuniecie-zintegrowanego-systemu-integration-deleted">Pomyślne usunięcie zintegrowanego systemu - integration.deleted</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uruchamianie-kampanii-campaign-starting">Uruchamianie kampanii - campaign.starting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uruchamianie-bloczka-kampanii-campaign-node-starting">Uruchamianie bloczka kampanii - campaign.node.starting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uruchomiona-kampania-campaign-started">Uruchomiona kampania - campaign.started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uruchamianie-bloczka-kampanii-campaign-node-started">Uruchamianie bloczka kampanii - campaign.node.started</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dostepne-funkcje-obslugi-zdarzen">Dostępne funkcję obsługi zdarzeń</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#wyszukiwanie-encji-w-kampanii-findentityincampaign">Wyszukiwanie encji w kampanii - findEntityInCampaign</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ponowne-uruchomienie-kampanii-reloadcampaigns">Ponowne uruchomienie kampanii - reloadCampaigns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wywolanie-api-api-call">Wywołanie API - api-call</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -162,141 +182,583 @@
            <div itemprop="articleBody">
             
   <div class="section" id="obsluga-zdarzen">
-<h1>Obsługa zdarzeń<a class="headerlink" href="#obsluga-zdarzen" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<span id="events-ref"></span><h1>Obsługa zdarzeń<a class="headerlink" href="#obsluga-zdarzen" title="Stały odnośnik do tego nagłówka">¶</a></h1>
 <p>System pozwala na określenie akcji jaka ma być wykonana przy określonych zdarzeniach systemu.</p>
-<p>Aby zdefiniować akcję obsługi zdarzeń w definicji systemu lub modułu należy wstawić sekcję event o strukturze:</p>
+<p>Definicja obsługi zdarzeń&nbsp;składa się&nbsp;listy zdarzeń, gdzie kluczem jest nazwa zdarzenia,
+a wartością&nbsp;jest obiekt składający się z dodatkowej konfiguracji - <strong>config</strong>
+oraz listy funkcji do wykonania podczas wywołania zdarzenia - <strong>listeners</strong>.</p>
+<p>Przykład:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;events&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;event&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Id zdarzenia&quot;</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;subscribers&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Typ subskrybenta&quot;</span>
-              <span class="p">}</span>
-            <span class="p">},</span>
-            <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-              <span class="nt">&quot;title&quot;</span> <span class="s2">&quot;Konfiguracja subskrybenta&quot;</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
+    <span class="nt">&quot;entity.changed&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">&quot;listeners&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;...&quot;</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;campaign.saved&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">&quot;listeners&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;...&quot;</span><span class="p">]</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Jeśli obsługa danego zdarzenia jest zdefiniowana w module i w systemie, zostanie użyta definicja modułu na którym jest wywoływane zdarzenia.</p>
-<p>Obecnie silnik konfiguracji wspiera następujące zdarzenia:</p>
-<ol class="arabic simple">
-<li>Zdarzenia kampanii:</li>
-</ol>
-<blockquote>
-<div><ul class="simple">
-<li>campaign.save - Zdarzenie podczas zapisu kampanii</li>
-<li>campaign.start - Zdarzenie przy uruchomieniu kampanii</li>
-<li>campaign.stop - Zdarzenie przy zatrzymaniu kampanii</li>
-<li>campaign.delete - Zdarzenie uruchomione przy usuwaniu kampanii</li>
-</ul>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li>Zdarzenia autoryzacji</li>
-</ol>
-<blockquote>
-<div><ul class="simple">
-<li>authorization.form.send - Zdarzenie aktywowane po wysłaniu formularza autoryzacji</li>
-</ul>
-</div></blockquote>
-<div class="section" id="subskrybenci-zdarzen">
-<span id="subscribers"></span><h2>Subskrybenci zdarzeń<a class="headerlink" href="#subskrybenci-zdarzen" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<div class="section" id="zapis-do-rest-api">
-<h3>Zapis do REST API<a class="headerlink" href="#zapis-do-rest-api" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<p>Akcja pozwala na wysłanie żądania do określonego API. Definicja musi być zgodna z schematem:</p>
+<p>Defincja funkcji składa się z pola <strong>type</strong> oznaczającą nazwę&nbsp;funkcji oraz dodatkowej konfiguracji - <strong>config</strong>.</p>
+<p>Przykład:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;rest-api&quot;</span>
+  <span class="nt">&quot;events&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;entity.changed&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">&quot;listeners&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;findEntityInCampaign&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;config&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
       <span class="p">]</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;clientId&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Id klienta, zdefiniowany w konfiguracji systemu&quot;</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;request&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
-              <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Metoda akcji w REST API&quot;</span><span class="p">,</span>
-              <span class="nt">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;DELETE&quot;</span>
-              <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Możliwa jest również&nbsp;definicja składająca się tylko z nazwy, jeśli w określonym przypadku nie jest wymagana konfiguracja(np. gdy poprzednia funkcja ustawi odpowiednie parametry):</p>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;events&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;entity.changed&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">&quot;listeners&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;reloadCampaigns&quot;</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Funkcje są uruchamiana zgodnie z kolejnością&nbsp;z jaką&nbsp;zostały zdefiniowane - z góry na dół. Funkcje mogą&nbsp;zapisywać&nbsp;parametry do wykorzystania w następnej funkcji.
+Konfiguracje funkcji są&nbsp;wstępnie</p>
+<div class="section" id="dostepne-zdarzenia">
+<h2>Dostępne zdarzenia<a class="headerlink" href="#dostepne-zdarzenia" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="section" id="zmiana-encji-systemowej-entity-changed">
+<h3>Zmiana encji systemowej - entity.changed<a class="headerlink" href="#zmiana-encji-systemowej-entity-changed" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Zdarzenie wyłowywane w momencie zapisu określonej encji systemowej - szablonu oraz zgodę web-push, personalizacji, treść statyczna oraz grupy testowej.</p>
+<p>Zdarzenie posiada następujące właściwości:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="16%" />
+<col width="77%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>type</td>
+<td>typ zapisanej encji</td>
+<td>personalizationTemplate, productFeed, testGroup, staticContent, notificationsTemplate, notificationsPromptTemplate</td>
+</tr>
+<tr class="row-odd"><td>entity</td>
+<td>obiekt zapisanej encji</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="pomyslne-zintegrowanie-systemu-integration-completed">
+<h3>Pomyślne zintegrowanie systemu - integration.completed<a class="headerlink" href="#pomyslne-zintegrowanie-systemu-integration-completed" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Zdarzenie wyłowywane w momencie gdy użytkownik pomyślne zakończy proces integracji.</p>
+<p>Zdarzenie posiada następujące właściwości:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="65%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>system</td>
+<td>obiekt zintegrowanego systemu</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>systemAccount</td>
+<td>obiekt zintegrowanego konta w systemie</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="pomyslne-usuniecie-zintegrowanego-systemu-integration-deleted">
+<h3>Pomyślne usunięcie zintegrowanego systemu - integration.deleted<a class="headerlink" href="#pomyslne-usuniecie-zintegrowanego-systemu-integration-deleted" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Zdarzenie wyłowywane w momencie gdy użytkownik pomyślne usunie integrację&nbsp;z konta</p>
+<p>Zdarzenie posiada następujące właściwości:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="65%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>system</td>
+<td>obiekt zintegrowanego systemu</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>systemAccount</td>
+<td>obiekt zintegrowanego konta w systemie</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="uruchamianie-kampanii-campaign-starting">
+<h3>Uruchamianie kampanii - campaign.starting<a class="headerlink" href="#uruchamianie-kampanii-campaign-starting" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Zdarzenie wywoływane podczas uruchamiania kampanii.</p>
+<p>Zdarzenie posiada następujące właściwości:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="56%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>account</td>
+<td>obiekt konta systemu</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>campaign</td>
+<td>obiekt kampanii</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="uruchamianie-bloczka-kampanii-campaign-node-starting">
+<h3>Uruchamianie bloczka kampanii - campaign.node.starting<a class="headerlink" href="#uruchamianie-bloczka-kampanii-campaign-node-starting" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Podobne jak <em>campaign.starting</em> tylko wywołane dla każdego bloczka w kampanii</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="64%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>block</td>
+<td>obiekt uruchamianego bloczka</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>campaign</td>
+<td>obiekt kampanii</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>session</td>
+<td>obiekt konta systemu</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="uruchomiona-kampania-campaign-started">
+<h3>Uruchomiona kampania - campaign.started<a class="headerlink" href="#uruchomiona-kampania-campaign-started" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Zdarzenie wywoływane przed zakończeniem procesu uruchamiana kampanii.</p>
+<p>Zdarzenie posiada następujące właściwości:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="56%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>account</td>
+<td>obiekt konta systemu</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>campaign</td>
+<td>obiekt kampanii</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="uruchamianie-bloczka-kampanii-campaign-node-started">
+<h3>Uruchamianie bloczka kampanii - campaign.node.started<a class="headerlink" href="#uruchamianie-bloczka-kampanii-campaign-node-started" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Podobne jak <em>campaign.started</em> tylko wywołane dla każdego bloczka w kampanii</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="64%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>block</td>
+<td>obiekt uruchamianego bloczka</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>campaign</td>
+<td>obiekt kampanii</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>session</td>
+<td>obiekt konta systemu</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="dostepne-funkcje-obslugi-zdarzen">
+<h2>Dostępne funkcję obsługi zdarzeń<a class="headerlink" href="#dostepne-funkcje-obslugi-zdarzen" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="section" id="wyszukiwanie-encji-w-kampanii-findentityincampaign">
+<h3>Wyszukiwanie encji w kampanii - findEntityInCampaign<a class="headerlink" href="#wyszukiwanie-encji-w-kampanii-findentityincampaign" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Funkcja pozwala na wyszukanie kampanii w których użyta jest dana encja.</p>
+<p>Konfiguracja:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="63%" />
+<col width="5%" />
+<col width="26%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>campaigns</td>
+<td>Pozwala na ograniczenie kampanii do wyszukania</td>
+<td>NIE</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>entityId</td>
+<td>Lista gdzie kluczem jest identyfikator pola ustawień bloczka, a wartością&nbsp;jest właściwość encji powiązana z polem</td>
+<td>TAK</td>
+<td>identyfikatory grup testowych - test_group_id</td>
+</tr>
+</tbody>
+</table>
+<p>Parametry ograniczenia wyszukiwania kampanii - <strong>campaigns</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="38%" />
+<col width="9%" />
+<col width="38%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>functionality</td>
+<td>Funkcjunalność do wyszukania w kampanii</td>
+<td>NIE</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>status</td>
+<td>Status kampanii</td>
+<td>NIE</td>
+<td>active - aktywne, inactive - wstrzymane</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład z użyciem zdarzenia entity.changed:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;events&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;entity.changed&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">&quot;listeners&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;findEntityInCampaign&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;campaigns&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&quot;functionality&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;email&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;database&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mobile&quot;</span>
+              <span class="p">],</span>
+              <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;active&quot;</span>
             <span class="p">},</span>
-            <span class="nt">&quot;action&quot;</span><span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
-              <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Url dla akcji&quot;</span>
-            <span class="p">},</span>
-            <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-              <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;body&quot;</span> <span class="p">:</span> <span class="p">{</span>
-                  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
-                  <span class="nt">&quot;title&quot;</span> <span class="p">:</span> <span class="s2">&quot;opcja używana do sterowania ciałem żądania. Opcja **NIE MOŻE** być używana do wysyłania żądania form-params&quot;</span>
-                <span class="p">},</span>
-                <span class="nt">&quot;json&quot;</span><span class="p">:</span> <span class="p">{</span>
-                  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-                  <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;body wysłany jako JSON&quot;</span>
-                <span class="p">},</span>
-                <span class="nt">&quot;form-params&quot;</span><span class="p">:</span> <span class="p">{</span>
-                  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-                  <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;body wysłany jako application/x-www-form-urlencoded&quot;</span>
-                <span class="p">},</span>
-                <span class="nt">&quot;headers&quot;</span><span class="p">:</span> <span class="p">{</span>
-                  <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;nagłówki wysłane przy żądaniu&quot;</span><span class="p">,</span>
-                  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
-                  <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+            <span class="nt">&quot;entityId&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&quot;@anyOf&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="p">{</span>
+                    <span class="nt">&quot;if&quot;</span><span class="p">:</span> <span class="s2">&quot;event.getType() = &#39;testGroup&#39;&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                      <span class="nt">&quot;test_group_id&quot;</span><span class="p">:</span> <span class="s2">&quot;{{event.getEntity().getId()}}&quot;</span>
+                    <span class="p">}</span>
+                  <span class="p">},</span>
+                  <span class="p">{</span>
+                    <span class="nt">&quot;if&quot;</span><span class="p">:</span> <span class="s2">&quot;event.getType() = &#39;personalizationTemplate&#39;&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                      <span class="nt">&quot;personalization_template_id&quot;</span><span class="p">:</span> <span class="s2">&quot;{{event.getEntity().getId()}}&quot;</span><span class="p">,</span>
+                      <span class="nt">&quot;data_source_cart&quot;</span><span class="p">:</span> <span class="s2">&quot;{{event.getEntity().getId()}}&quot;</span><span class="p">,</span>
+                      <span class="nt">&quot;data_source_recommendation&quot;</span><span class="p">:</span> <span class="s2">&quot;{{event.getEntity().getId()}}&quot;</span>
+                    <span class="p">}</span>
                   <span class="p">}</span>
+                <span class="p">],</span>
+              <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;merge&quot;</span><span class="p">:</span> <span class="kc">true</span>
+              <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Funkcja zapisuje wyszukanie identyfikatory w parametrze campaigns w właściwości id.</p>
+</div>
+<div class="section" id="ponowne-uruchomienie-kampanii-reloadcampaigns">
+<h3>Ponowne uruchomienie kampanii - reloadCampaigns<a class="headerlink" href="#ponowne-uruchomienie-kampanii-reloadcampaigns" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Funkcja pozwala na przeładowanie kampanii w koncie.</p>
+<p>Konfiguracja:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="63%" />
+<col width="13%" />
+<col width="9%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>campaigns</td>
+<td>Pozwala na ograniczenie kampanii do wyszukania</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Parametry ograniczenia wyszukiwania kampanii - <strong>campaigns</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="22%" />
+<col width="13%" />
+<col width="53%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>Id kampanii</td>
+<td>NIE</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>status</td>
+<td>Status kampanii</td>
+<td>NIE</td>
+<td>active - aktywne, inactive - wstrzymane</td>
+</tr>
+<tr class="row-even"><td>type</td>
+<td>Typ kampanii</td>
+<td>NIE</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;events&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;entity.changed&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">&quot;listeners&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;reloadCampaigns&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;campaigns&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;{{params[&#39;campaigns&#39;][&#39;id&#39;]}}&quot;</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Jeśli poprzednia funkcja zapisała parametr campaigns (np. findEntityInCampaign), funkcję <strong>reloadCampaigns</strong> można zapisać&nbsp;bez konfiguracji</p>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;events&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="nt">&quot;entity.changed&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="nt">&quot;listeners&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;findEntityInCampaign&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;campaigns&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;functionality&quot;</span><span class="p">:</span> <span class="p">[</span>
+              <span class="s2">&quot;email&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;database&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;mobile&quot;</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;active&quot;</span>
+          <span class="p">},</span>
+          <span class="nt">&quot;entityId&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;@anyOf&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                  <span class="nt">&quot;if&quot;</span><span class="p">:</span> <span class="s2">&quot;event.getType() = &#39;testGroup&#39;&quot;</span><span class="p">,</span>
+                  <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;test_group_id&quot;</span><span class="p">:</span> <span class="s2">&quot;{{event.getEntity().getId()}}&quot;</span>
+                  <span class="p">}</span>
+                <span class="p">},</span>
+              <span class="p">],</span>
+              <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;merge&quot;</span><span class="p">:</span> <span class="kc">true</span>
+              <span class="p">}</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;reloadCampaigns&quot;</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="wywolanie-api-api-call">
+<h3>Wywołanie API - api-call<a class="headerlink" href="#wywolanie-api-api-call" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Funkcja służy do wywołania zapytania do API</p>
+<p>Konfiguracja:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="45%" />
+<col width="20%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>client</td>
+<td>Klient API Guzzle</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>request</td>
+<td>Konfiguracja żądania</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Konfiguracja żądania:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="25%" />
+<col width="17%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parametr</th>
+<th class="head">Opis</th>
+<th class="head">Wymagane</th>
+<th class="head">Uwagi</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>method</td>
+<td>Metoda HTTP</td>
+<td>TAK</td>
+<td>GET, POST itp.</td>
+</tr>
+<tr class="row-odd"><td>url</td>
+<td>Url do zasobu</td>
+<td>TAK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>options</td>
+<td>Opcję żądania</td>
+<td>TAK</td>
+<td>Opcję zgodne z <a class="reference external" href="http://docs.guzzlephp.org/en/stable/request-options.html">Guzzle</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;events&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;campaign.starting&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">&quot;listeners&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;api-call&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;client&quot;</span><span class="p">:</span> <span class="s2">&quot;test_api&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;request&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
+              <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;hubs/{{event.getAccount().id}}/campaigns/{{event.getCampaign().getId()}}/test&quot;</span><span class="p">,</span>
+              <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;json&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="mi">1</span>
                 <span class="p">}</span>
               <span class="p">}</span>
-            <span class="p">},</span>
-            <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
-              <span class="s2">&quot;type&quot;</span><span class="p">,</span>
-              <span class="s2">&quot;method&quot;</span><span class="p">,</span>
-              <span class="s2">&quot;action&quot;</span><span class="p">,</span>
-              <span class="s2">&quot;options&quot;</span>
-            <span class="p">],</span>
-            <span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="p">}</span>
           <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;onSuccess&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;onError&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
         <span class="p">}</span>
-      <span class="p">}</span>
+      <span class="p">]</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -312,12 +774,19 @@
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="preprocesor.html" class="btn btn-neutral float-left" title="Wstępne parsowanie pliku" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Digitree Group S.A.
+        &copy; Copyright 2020, Digitree Group S.A.
 
     </p>
   </div> 

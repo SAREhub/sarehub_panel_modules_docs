@@ -53,7 +53,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'SAREhub Panel'
-copyright = u'2019, Digitree Group S.A.'
+copyright = u'2020, Digitree Group S.A.'
 author = u'Digitree Group S.A.'
 
 # The version info for the project you're documenting, acts as replacement for
